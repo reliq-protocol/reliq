@@ -31,7 +31,7 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({ onConnect }) => {
         <div className="relative group">
           <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
           <div className="w-24 h-24 bg-surface/80 backdrop-blur-md rounded-2xl border border-white/10 flex items-center justify-center relative rotate-45 group-hover:rotate-0 transition-all duration-500 ease-out shadow-2xl shadow-black overflow-hidden">
-            <img src="/reliq-logo-dark.webp" alt="Relic Logo" className="w-16 h-16 -rotate-45 group-hover:rotate-0 transition-all duration-500 object-contain" />
+            <img src={`${import.meta.env.BASE_URL}reliq-logo-dark.webp`} alt="Relic Logo" className="w-16 h-16 -rotate-45 group-hover:rotate-0 transition-all duration-500 object-contain" />
           </div>
         </div>
 

@@ -300,7 +300,7 @@ export const PulseMonitor: React.FC<PulseMonitorProps> = ({ currentUser, onSwitc
           {/* Logo and Brand */}
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-surface to-background-dark border border-white/10 flex items-center justify-center shadow-lg group overflow-hidden">
-              <img src="/reliq-logo-dark.webp" alt="Relic Logo" className="w-7 h-7 group-hover:rotate-12 transition-transform duration-500 object-contain" />
+              <img src={`${import.meta.env.BASE_URL}reliq-logo-dark.webp`} alt="Relic Logo" className="w-7 h-7 group-hover:rotate-12 transition-transform duration-500 object-contain" />
             </div>
             <div className="flex flex-col">
               <h1 className="text-lg font-bold tracking-tight text-white leading-tight">Relic</h1>
