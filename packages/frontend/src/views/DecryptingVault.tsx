@@ -36,9 +36,9 @@ export const DecryptingVault: React.FC = () => {
       <div className="min-h-screen bg-background-dark text-white font-sans flex flex-col items-center justify-center p-6 pb-24 relative overflow-hidden">
         {/* Background Ambience */}
         <div className="absolute top-[-20%] right-[-20%] w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
-        
+
         <div className="w-full max-w-md space-y-8 relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
-          
+
           <div className="text-center space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4">
               <span className="relative flex h-2 w-2">
@@ -49,7 +49,7 @@ export const DecryptingVault: React.FC = () => {
             </div>
             <h1 className="text-3xl font-bold tracking-tight">Vault Discovered</h1>
             <p className="text-white/60">
-              A dead man's switch protocol has triggered. <br/>
+              A dead man's switch protocol has triggered. <br />
               Encrypted assets are pending retrieval.
             </p>
           </div>
@@ -60,13 +60,13 @@ export const DecryptingVault: React.FC = () => {
               <div className="absolute top-0 right-0 p-4 opacity-10">
                 <Lock size={120} />
               </div>
-              
+
               <div className="space-y-6 relative z-10">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 p-[1px]">
-                     <div className="w-full h-full rounded-full bg-surface flex items-center justify-center">
-                        <span className="font-bold text-lg">D</span>
-                     </div>
+                    <div className="w-full h-full rounded-full bg-surface flex items-center justify-center">
+                      <span className="font-bold text-lg">D</span>
+                    </div>
                   </div>
                   <div>
                     <h3 className="text-lg font-bold">Dad's Vault</h3>
@@ -79,7 +79,7 @@ export const DecryptingVault: React.FC = () => {
             </div>
           </div>
 
-          <button 
+          <button
             onClick={() => setStatus('DECRYPTING')}
             className="w-full bg-primary text-black font-bold text-lg py-4 rounded-xl border border-primary btn-3d hover:brightness-110 active:brightness-90 flex items-center justify-center gap-3 group transition-all"
           >
@@ -95,7 +95,7 @@ export const DecryptingVault: React.FC = () => {
   if (status === 'DECRYPTING') {
     return (
       <div className="min-h-screen bg-background-dark text-white font-sans flex items-center justify-center overflow-hidden relative selection:bg-primary selection:text-background-dark pb-24">
-        
+
         {/* Background Decorative Elements */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-20 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[100px] opacity-40 mix-blend-screen" />
@@ -121,7 +121,7 @@ export const DecryptingVault: React.FC = () => {
         </div>
 
         <main className="relative z-10 w-full max-w-md h-full flex flex-col items-center justify-between p-6">
-          
+
           {/* Header */}
           <div className="w-full flex justify-between items-center pt-2 opacity-60">
             <div className="flex items-center gap-2">
@@ -137,27 +137,27 @@ export const DecryptingVault: React.FC = () => {
               {/* Rings */}
               <div className="absolute w-72 h-72 rounded-full border border-primary/20 border-t-primary/60 border-l-transparent animate-spin-slow" />
               <div className="absolute w-56 h-56 rounded-full border border-white/5 border-b-primary/40 border-r-transparent animate-spin-reverse-slow" />
-              
+
               {/* Progress Text in Center */}
               <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
                 <span className="text-5xl font-bold text-white font-mono">{Math.floor(progress)}%</span>
                 <span className="text-xs text-primary/60 uppercase tracking-widest mt-2 animate-pulse">Decrypting</span>
               </div>
-              
+
               {/* Glow */}
               <div className="absolute w-40 h-40 bg-primary/10 rounded-full blur-2xl animate-pulse" />
             </div>
 
             {/* Progress Bar */}
             <div className="w-64 h-1.5 bg-white/10 rounded-full mt-8 overflow-hidden">
-              <div 
+              <div
                 className="h-full bg-primary shadow-[0_0_10px_rgba(253,223,73,0.8)] transition-all duration-100 ease-out"
                 style={{ width: `${progress}%` }}
               />
             </div>
-            
+
             <div className="mt-4 flex flex-col items-center gap-2">
-               <span className="text-xs font-mono text-slate-400">Reconstructing Private Key...</span>
+              <span className="text-xs font-mono text-slate-400">Performing Threshold Decryption...</span>
             </div>
           </div>
 
@@ -187,7 +187,7 @@ export const DecryptingVault: React.FC = () => {
       <div className="absolute -top-24 -right-24 w-64 h-64 bg-purple-500/20 rounded-full blur-[80px] pointer-events-none z-0" />
 
       <div className="w-full max-w-md h-full relative flex flex-col z-10">
-        
+
         {/* Header */}
         <div className="px-6 pt-12 pb-4 flex items-center justify-between">
           <div className="flex items-center gap-2 text-primary/80">
@@ -204,7 +204,7 @@ export const DecryptingVault: React.FC = () => {
           {/* Main Title Area */}
           <div className="flex flex-col items-center justify-center pt-4 pb-2 text-center">
             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 ring-1 ring-primary/30 shadow-[0_0_20px_rgba(253,223,73,0.15)] animate-[bounce_2s_infinite]">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" /></svg>
             </div>
             <h1 className="text-white text-2xl font-bold tracking-tight mb-1">Legacy Decrypted</h1>
             <p className="text-white/50 text-sm">Protocol Verified • {new Date().toLocaleDateString()}</p>
