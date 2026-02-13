@@ -69,7 +69,7 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({ onConnect }) => {
 
           <div className="flex items-center justify-center gap-2 text-[10px] text-slate-500 font-mono">
             <ShieldCheck size={12} />
-            <span>End-to-End Encrypted • Non-Custodial</span>
+            <span>supported by BITE v2 protocol</span>
           </div>
         </div>
       </div>
