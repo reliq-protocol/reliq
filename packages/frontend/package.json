@@ -1,0 +1,29 @@
+{
+    "name": "relic-frontend",
+    "version": "0.0.0",
+    "private": true,
+    "homepage": "https://reliq-protocol.github.io/reliq/",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "predeploy": "bun run build",
+        "deploy": "gh-pages -d dist --dotfiles"
+    },
+    "dependencies": {
+        "@skalenetwork/bite": "^0.7.1",
+        "lucide-react": "^0.564.0",
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4"
+    },
+    "devDependencies": {
+        "@types/node": "^22.14.0",
+        "@types/react": "^19.0.0",
+        "@types/react-dom": "^19.0.0",
+        "@vitejs/plugin-react": "^5.0.0",
+        "gh-pages": "^6.3.0",
+        "typescript": "~5.8.2",
+        "vite": "^6.2.0"
+    }
+}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Wallet, ShieldCheck, ArrowRight, Hexagon } from 'lucide-react';
+import { Wallet, ShieldCheck, ArrowRight } from 'lucide-react';
 
 interface ConnectWalletProps {
   onConnect: () => void;
@@ -26,12 +26,12 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({ onConnect }) => {
       </div>
 
       <div className="relative z-10 w-full max-w-sm flex flex-col items-center gap-12 animate-in fade-in zoom-in duration-700">
-        
+
         {/* Logo / Icon */}
         <div className="relative group">
           <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="w-24 h-24 bg-surface/80 backdrop-blur-md rounded-2xl border border-white/10 flex items-center justify-center relative rotate-45 group-hover:rotate-0 transition-all duration-500 ease-out shadow-2xl shadow-black">
-             <Hexagon className="text-primary -rotate-45 group-hover:rotate-0 transition-all duration-500" size={48} strokeWidth={1.5} />
+          <div className="w-24 h-24 bg-surface/80 backdrop-blur-md rounded-2xl border border-white/10 flex items-center justify-center relative rotate-45 group-hover:rotate-0 transition-all duration-500 ease-out shadow-2xl shadow-black overflow-hidden">
+            <img src="/reliq-logo-dark.webp" alt="Relic Logo" className="w-16 h-16 -rotate-45 group-hover:rotate-0 transition-all duration-500 object-contain" />
           </div>
         </div>
 
@@ -41,14 +41,14 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({ onConnect }) => {
             Relic
           </h1>
           <p className="text-slate-400 text-sm leading-relaxed max-w-[280px] mx-auto">
-            Decentralized dead man's switch protocol. <br/>
+            Decentralized dead man's switch protocol. <br />
             Secure your digital legacy.
           </p>
         </div>
 
         {/* Action */}
         <div className="w-full space-y-4">
-          <button 
+          <button
             onClick={handleConnect}
             disabled={isConnecting}
             className="w-full h-14 bg-white text-black font-bold text-sm uppercase tracking-widest rounded-full hover:bg-primary transition-all duration-300 flex items-center justify-center gap-3 shadow-lg shadow-white/5 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed group"
@@ -66,7 +66,7 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({ onConnect }) => {
               </>
             )}
           </button>
-          
+
           <div className="flex items-center justify-center gap-2 text-[10px] text-slate-500 font-mono">
             <ShieldCheck size={12} />
             <span>End-to-End Encrypted • Non-Custodial</span>

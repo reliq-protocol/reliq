@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { ChevronLeft, MoreHorizontal, Wallet, QrCode, ChevronDown, Shield, Lock, Copy, User, X, LogOut, ChevronRight, Settings, AlertCircle, ChevronUp } from 'lucide-react';
+import { ChevronLeft, Wallet, QrCode, ChevronDown, Lock, Copy, User, X, LogOut, ChevronRight, Settings, AlertCircle, ChevronUp } from 'lucide-react';
 import { UserRole } from '../types';
 
 interface ProvisionVaultProps {
-    currentUser: UserRole;
-    onSwitchUser: () => void;
-    onDisconnect: () => void;
+  currentUser: UserRole;
+  onSwitchUser: () => void;
+  onDisconnect: () => void;
 }
 
 export const ProvisionVault: React.FC<ProvisionVaultProps> = ({ currentUser, onSwitchUser, onDisconnect }) => {
   const [amount, setAmount] = useState<string>('');
   const [showWalletModal, setShowWalletModal] = useState(false);
-  
+
   // Advanced Settings State
   const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
   const [expirationDays, setExpirationDays] = useState<number>(30);
-  
+
   const walletAddress = currentUser === 'CREATOR' ? '0x71C...9A21' : '0xMoose...B404';
 
   const handleExpirationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,10 +37,10 @@ export const ProvisionVault: React.FC<ProvisionVaultProps> = ({ currentUser, onS
         <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={() => setShowWalletModal(false)} />
           <div className="relative bg-[#1a1810] border border-white/10 w-full max-w-sm rounded-t-2xl sm:rounded-2xl p-6 space-y-6 animate-in slide-in-from-bottom-10 duration-200 shadow-2xl shadow-black">
-            
+
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-bold text-white tracking-tight">Account Access</h3>
-              <button 
+              <button
                 onClick={() => setShowWalletModal(false)}
                 className="p-1 text-slate-400 hover:text-white rounded-full hover:bg-white/5"
               >
@@ -77,7 +77,7 @@ export const ProvisionVault: React.FC<ProvisionVaultProps> = ({ currentUser, onS
 
             {/* Actions */}
             <div className="space-y-2">
-              <button 
+              <button
                 onClick={() => {
                   onSwitchUser();
                   setShowWalletModal(false);
@@ -98,12 +98,12 @@ export const ProvisionVault: React.FC<ProvisionVaultProps> = ({ currentUser, onS
                 <ChevronRight size={16} className="text-slate-500 group-hover:text-white transition-colors" />
               </button>
 
-              <button 
+              <button
                 onClick={onDisconnect}
                 className="w-full flex items-center justify-between p-4 bg-red-500/5 hover:bg-red-500/10 border border-red-500/10 rounded-xl transition-all group"
               >
                 <div className="flex items-center gap-3">
-                   <div className="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center text-red-400">
+                  <div className="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center text-red-400">
                     <LogOut size={16} />
                   </div>
                   <div className="text-left">
@@ -113,8 +113,8 @@ export const ProvisionVault: React.FC<ProvisionVaultProps> = ({ currentUser, onS
                 </div>
               </button>
             </div>
-            
-             <div className="text-center pt-2">
+
+            <div className="text-center pt-2">
               <p className="text-[10px] text-slate-600">
                 Relic Protocol v1.0.4 • Secure Connection
               </p>
@@ -129,17 +129,17 @@ export const ProvisionVault: React.FC<ProvisionVaultProps> = ({ currentUser, onS
           <ChevronLeft size={20} />
         </button>
         <h1 className="text-lg font-bold tracking-tight text-white">Provision New Vault</h1>
-        
+
         {/* Avatar Button */}
-        <button 
-            onClick={() => setShowWalletModal(true)}
-            className="w-9 h-9 rounded-full bg-gradient-to-tr from-primary to-yellow-200 p-[1.5px] hover:scale-105 transition-transform shadow-lg shadow-primary/20"
-          >
-            <div className="w-full h-full rounded-full bg-surface flex items-center justify-center overflow-hidden relative">
-                {/* Fallback Avatar / Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 opacity-80" />
-                <User className="relative z-10 text-white/90 w-4 h-4" />
-            </div>
+        <button
+          onClick={() => setShowWalletModal(true)}
+          className="w-9 h-9 rounded-full bg-gradient-to-tr from-primary to-yellow-200 p-[1.5px] hover:scale-105 transition-transform shadow-lg shadow-primary/20"
+        >
+          <div className="w-full h-full rounded-full bg-surface flex items-center justify-center overflow-hidden relative">
+            {/* Fallback Avatar / Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 opacity-80" />
+            <User className="relative z-10 text-white/90 w-4 h-4" />
+          </div>
         </button>
       </header>
 
@@ -168,9 +168,9 @@ export const ProvisionVault: React.FC<ProvisionVaultProps> = ({ currentUser, onS
             <div className="absolute inset-0 bg-primary/5 opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none" />
             <div className="flex items-center gap-2 px-3 py-3">
               <Wallet className="text-white/40" size={20} />
-              <input 
-                type="text" 
-                placeholder="0x..." 
+              <input
+                type="text"
+                placeholder="0x..."
                 className="bg-transparent border-none text-white font-mono text-sm w-full focus:ring-0 placeholder-white/20 tracking-wide outline-none"
                 spellCheck={false}
               />
@@ -195,9 +195,9 @@ export const ProvisionVault: React.FC<ProvisionVaultProps> = ({ currentUser, onS
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/10">
-                   {/* Ethereum Icon SVG */}
+                  {/* Ethereum Icon SVG */}
                   <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-90">
-                    <path d="M16 32C7.163 32 0 24.837 0 16S7.163 0 16 0s16 7.163 16 16-7.163 16-16 16zm7.994-15.781L16.498 4 9 16.22l7.498 4.353 7.496-4.354zM24 17.616l-7.502 4.351L9 17.617l7.498 10.378L24 17.616z" fill="#fff"/>
+                    <path d="M16 32C7.163 32 0 24.837 0 16S7.163 0 16 0s16 7.163 16 16-7.163 16-16 16zm7.994-15.781L16.498 4 9 16.22l7.498 4.353 7.496-4.354zM24 17.616l-7.502 4.351L9 17.617l7.498 10.378L24 17.616z" fill="#fff" />
                   </svg>
                 </div>
                 <div>
@@ -210,7 +210,7 @@ export const ProvisionVault: React.FC<ProvisionVaultProps> = ({ currentUser, onS
                 <ChevronDown size={16} />
               </button>
             </div>
-            
+
             {/* Amount Input */}
             <div>
               <div className="flex justify-between mb-2">
@@ -218,9 +218,9 @@ export const ProvisionVault: React.FC<ProvisionVaultProps> = ({ currentUser, onS
                 <span className="text-xs text-primary font-mono cursor-pointer hover:text-white">MAX: 4.208 ETH</span>
               </div>
               <div className="relative">
-                <input 
-                  type="number" 
-                  placeholder="0.00" 
+                <input
+                  type="number"
+                  placeholder="0.00"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   className="w-full bg-transparent text-4xl font-bold text-white placeholder-white/10 border-none p-0 focus:ring-0 tracking-tight outline-none"
@@ -239,7 +239,7 @@ export const ProvisionVault: React.FC<ProvisionVaultProps> = ({ currentUser, onS
             <span className="text-[10px] text-white/40 bg-white/5 px-2 py-0.5 rounded border border-white/5 font-mono">AES-256</span>
           </div>
           <div className="glass-panel rounded-xl p-1 focus-within:border-primary/50 transition-colors relative">
-            <textarea 
+            <textarea
               className="w-full bg-transparent border-none text-white/90 text-sm p-4 focus:ring-0 placeholder-white/20 resize-none leading-relaxed outline-none"
               placeholder="Write a private message to be decrypted only by the beneficiary upon access..."
               defaultValue="Morgan, I love you 3000. You are my greatest creation. Keep making me proud. - Dad"
@@ -250,58 +250,58 @@ export const ProvisionVault: React.FC<ProvisionVaultProps> = ({ currentUser, onS
             </div>
           </div>
         </section>
-        
+
         {/* Advanced Settings */}
         <section className="glass-panel rounded-xl overflow-hidden transition-all duration-300 mb-8">
-           <button 
-             onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
-             className="w-full flex items-center justify-between p-4 bg-white/5 hover:bg-white/10 transition-colors"
-           >
-              <div className="flex items-center gap-3">
-                 <Settings size={18} className="text-white/60" />
-                 <span className="text-sm font-medium text-white/90">Advanced Settings</span>
-              </div>
-              {isAdvancedOpen ? <ChevronUp size={18} className="text-white/40" /> : <ChevronDown size={18} className="text-white/40" />}
-           </button>
-           
-           {isAdvancedOpen && (
-             <div className="p-4 border-t border-white/5 bg-black/20 space-y-4 animate-in slide-in-from-top-2 duration-200">
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                     <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Inactivity Threshold</label>
-                     {isExpirationInvalid && (
-                       <span className="flex items-center gap-1 text-[10px] text-red-400 font-bold bg-red-900/20 px-2 py-0.5 rounded">
-                         <AlertCircle size={10} />
-                         MIN 3 DAYS
-                       </span>
-                     )}
-                  </div>
-                  
-                  <div className={`relative group transition-all duration-300 rounded-lg ${isExpirationInvalid ? 'ring-1 ring-red-500/50' : 'focus-within:ring-1 focus-within:ring-primary/50'}`}>
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                       <span className="text-white/20 font-mono text-sm">DAYS:</span>
-                    </div>
-                    <input 
-                      type="number" 
-                      value={expirationDays}
-                      onChange={handleExpirationChange}
-                      className="block w-full pl-14 pr-3 py-3 bg-black/20 border border-white/10 rounded-lg text-white font-mono text-sm focus:outline-none focus:border-white/20 transition-all placeholder-white/20"
-                    />
-                  </div>
-                  <p className="text-[10px] text-white/40 leading-relaxed">
-                    The Pulse Monitor protocol will require a check-in within this period. Failure to check in will trigger key shard release.
-                  </p>
+          <button
+            onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
+            className="w-full flex items-center justify-between p-4 bg-white/5 hover:bg-white/10 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <Settings size={18} className="text-white/60" />
+              <span className="text-sm font-medium text-white/90">Advanced Settings</span>
+            </div>
+            {isAdvancedOpen ? <ChevronUp size={18} className="text-white/40" /> : <ChevronDown size={18} className="text-white/40" />}
+          </button>
+
+          {isAdvancedOpen && (
+            <div className="p-4 border-t border-white/5 bg-black/20 space-y-4 animate-in slide-in-from-top-2 duration-200">
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Inactivity Threshold</label>
+                  {isExpirationInvalid && (
+                    <span className="flex items-center gap-1 text-[10px] text-red-400 font-bold bg-red-900/20 px-2 py-0.5 rounded">
+                      <AlertCircle size={10} />
+                      MIN 3 DAYS
+                    </span>
+                  )}
                 </div>
-             </div>
-           )}
+
+                <div className={`relative group transition-all duration-300 rounded-lg ${isExpirationInvalid ? 'ring-1 ring-red-500/50' : 'focus-within:ring-1 focus-within:ring-primary/50'}`}>
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span className="text-white/20 font-mono text-sm">DAYS:</span>
+                  </div>
+                  <input
+                    type="number"
+                    value={expirationDays}
+                    onChange={handleExpirationChange}
+                    className="block w-full pl-14 pr-3 py-3 bg-black/20 border border-white/10 rounded-lg text-white font-mono text-sm focus:outline-none focus:border-white/20 transition-all placeholder-white/20"
+                  />
+                </div>
+                <p className="text-[10px] text-white/40 leading-relaxed">
+                  The Pulse Monitor protocol will require a check-in within this period. Failure to check in will trigger key shard release.
+                </p>
+              </div>
+            </div>
+          )}
         </section>
 
         {/* Floating Action Button */}
         <div className="fixed bottom-[80px] left-0 right-0 p-6 z-40 bg-gradient-to-t from-background-dark via-background-dark/95 to-transparent pointer-events-none">
           <div className="max-w-md mx-auto pointer-events-auto">
-            <button 
-                disabled={isExpirationInvalid}
-                className="w-full bg-primary text-black font-bold text-lg py-4 rounded-lg border border-primary btn-3d hover:brightness-110 active:brightness-90 flex items-center justify-center gap-3 group relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed disabled:grayscale"
+            <button
+              disabled={isExpirationInvalid}
+              className="w-full bg-primary text-black font-bold text-lg py-4 rounded-lg border border-primary btn-3d hover:brightness-110 active:brightness-90 flex items-center justify-center gap-3 group relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed disabled:grayscale"
             >
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
               <Lock className="text-black/80" size={20} />

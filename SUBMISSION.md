@@ -2,6 +2,8 @@
 
 **Privacy-first Digital Inheritance Vault on SKALE**
 
+> "Reliq ensures your digital legacy survives with absolute privacy and trustless execution, keeping your secrets safe until the moment they matter most."
+
 ## Project Description
 
 Reliq is a decentralized digital inheritance protocol that allows users to create encrypted "dead man's switch" vaults. It leverages **BITE v2 (Blockchain Integrated Threshold Encryption)** to ensure that sensitive asset transfer instructions remain completely private until a specific condition (user inactivity/timeout) is met.
@@ -21,6 +23,12 @@ Reliq implements a "Conditional Transaction" workflow to solve the privacy probl
 We successfully deployed and tested the full lifecycle on **SKALE Base Sepolia Testnet**.
 
 **Contract Address:** `0x2277f5210daAaab3E26e565c96E5F9BeDb46662B`
+
+## Links
+ 
+ *   **Demo Video**: [INSERT_VIDEO_LINK_HERE]
+ *   **GitHub Repository**: [https://github.com/reliq-protocol/reliq](https://github.com/reliq-protocol/reliq)
+ *   **Live Demo**: [https://reliq-protocol.github.io/reliq/](https://reliq-protocol.github.io/reliq/)
 
 ### 1. Complete Workflow Demo (Privacy + Execution)
 

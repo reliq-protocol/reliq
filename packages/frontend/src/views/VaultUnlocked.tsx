@@ -1,5 +1,5 @@
 import React from 'react';
-import { LockOpen, Download, Quote, CheckCircle, ExternalLink, ShieldCheck, LayoutDashboard, Wallet, History, Settings } from 'lucide-react';
+import { LockOpen, Download, Quote, CheckCircle, ExternalLink, ShieldCheck } from 'lucide-react';
 
 export const VaultUnlocked: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ export const VaultUnlocked: React.FC = () => {
       <div className="absolute -top-24 -right-24 w-64 h-64 bg-purple-500/20 rounded-full blur-[80px] pointer-events-none z-0" />
 
       <div className="w-full max-w-md h-full relative flex flex-col z-10">
-        
+
         {/* Header */}
         <div className="px-6 pt-12 pb-4 flex items-center justify-between">
           <div className="flex items-center gap-2 text-primary/80">
@@ -26,7 +26,7 @@ export const VaultUnlocked: React.FC = () => {
           {/* Main Title Area */}
           <div className="flex flex-col items-center justify-center pt-4 pb-2 text-center">
             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 ring-1 ring-primary/30 shadow-[0_0_20px_rgba(253,223,73,0.15)]">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" /></svg>
             </div>
             <h1 className="text-white text-2xl font-bold tracking-tight mb-1">Legacy Decrypted</h1>
             <p className="text-white/50 text-sm">Protocol Verified • October 24, 2024</p>

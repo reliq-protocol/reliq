@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Navigation } from './components/Navigation';
 import { ProvisionVault } from './views/ProvisionVault';
 import { PulseMonitor } from './views/PulseMonitor';
@@ -52,12 +52,12 @@ function App() {
   return (
     <div className="bg-background-dark min-h-screen">
       {renderView()}
-      
+
       {/* Navigation is only visible if User is logged in AND User is the Creator (Tony) */}
       {/* Morgan only sees the specific decrypt screen, so no bottom nav for her context based on the "Logic: Only Morgan sees..." prompt interpretation. */}
       {/* OR: If we want Morgan to have nav, we can add it. But usually beneficiaries just get a link. */}
       {/* Let's keep Nav for Tony to switch between Pulse and Provision. */}
-      
+
       {currentUser === 'CREATOR' && (
         <Navigation currentView={currentView} onViewChange={setCurrentView} />
       )}
