@@ -1,0 +1,36 @@
+
+> relic-test-suite@1.0.0 test:03
+> tsx 03-heartbeat.ts 2026-02-13_17-18-41
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 3: Send Heartbeat Response
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 Test session: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_17-18-41
+Vault ID: 0
+
+Timestamp: 1771003259
+Nonce: 357030
+
+Domain Separator: 0xa679c7f8dda7d587c1def8fcb57982d517370d7d1fbd7806af8fe23100043897
+Heartbeat TypeHash: 0x64b69b4e3bb3e2dc7670f23ca449710dad1fe4af066b05c5123111b18e93dbaf
+
+Struct Hash: 0x803d5170ec5ce7027d9259f02c8ef83f7d6ee8dab27e392a5bb7c5378f571838
+Digest: 0xd2337704920054340bc23aaa9f2ee412b3b620ef8f9f19499291fa0bc7ed87ac
+
+Signature: 0xe1b03891cac57f5241054c933eed9599032c64ead6944564b148b2552d4d84700ccdf321d7671f99d666dc7ccff50ed45cc0f88ff205446323fd2806fb6364a21c
+
+📤 Sending heartbeat transaction...
+Transaction hash: 0x77c9fb080b326173af25a94458f6afeb35b194a9450ac3e059b779dfe7aac13c
+Waiting for confirmation...
+
+✅ Heartbeat recorded!
+Block: 875865
+Gas used: 61807
+
+✅ Step 3: Send Heartbeat Response
+   TX: 0x77c9fb080b326173af25a94458f6afeb35b194a9450ac3e059b779dfe7aac13c
+   Log: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_17-18-41/step_3.log
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 3 Complete!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

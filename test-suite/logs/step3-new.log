@@ -1,0 +1,52 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 3: Send Heartbeat Response
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 Test session: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_18-02-48
+Vault ID: 8
+
+Timestamp: 1771005786
+Nonce: 689448
+
+Domain Separator: 0xe81f2e657ac3004555ac318c86ca070cb90aaa725cff21f2b93f0f5a91969148
+Heartbeat TypeHash: 0x64b69b4e3bb3e2dc7670f23ca449710dad1fe4af066b05c5123111b18e93dbaf
+
+Struct Hash: 0x1f49f20d0a77e89871f74fb322447c320fe5b3ed0c6882ac63e1083f1419c7c2
+Digest: 0xab868b6b148052617ba95743743b9fdcdfd79718b99e1313699790f34d6353ea
+
+Signature: 0xef92fb37960de870ca646036a9e55d716ad7d2ce0b6faaa0b0675dc3bd831b462f0e442bc0fb59c18b0b4d4eeedac0017756e164d80c92c80620e437f11017721b
+
+📤 Sending heartbeat transaction...
+Error: execution reverted (unknown custom error) (action="estimateGas", data="0x8baa579f", reason=null, transaction={ "data": "0xacab5e7c000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000698f675a00000000000000000000000000000000000000000000000000000000000a852800000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000041ef92fb37960de870ca646036a9e55d716ad7d2ce0b6faaa0b0675dc3bd831b462f0e442bc0fb59c18b0b4d4eeedac0017756e164d80c92c80620e437f11017721b00000000000000000000000000000000000000000000000000000000000000", "from": "0x9554CEb8aEAA4bDEc5b088ec980254d6a2Da3c72", "to": "0x2277f5210daAaab3E26e565c96E5F9BeDb46662B" }, invocation=null, revert=null, code=CALL_EXCEPTION, version=6.16.0)
+    at makeError (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/ethers/src.ts/utils/errors.ts:698:21)
+    at getBuiltinCallException (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/ethers/src.ts/abi/abi-coder.ts:118:12)
+    at AbiCoder.getBuiltinCallException (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/ethers/src.ts/abi/abi-coder.ts:235:16)
+    at JsonRpcProvider.getRpcError (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/ethers/src.ts/providers/provider-jsonrpc.ts:1016:32)
+    at <anonymous> (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/ethers/src.ts/providers/provider-jsonrpc.ts:571:45)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  code: 'CALL_EXCEPTION',
+  action: 'estimateGas',
+  data: '0x8baa579f',
+  reason: null,
+  transaction: {
+    to: '0x2277f5210daAaab3E26e565c96E5F9BeDb46662B',
+    data: '0xacab5e7c000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000698f675a00000000000000000000000000000000000000000000000000000000000a852800000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000041ef92fb37960de870ca646036a9e55d716ad7d2ce0b6faaa0b0675dc3bd831b462f0e442bc0fb59c18b0b4d4eeedac0017756e164d80c92c80620e437f11017721b00000000000000000000000000000000000000000000000000000000000000',
+    from: '0x9554CEb8aEAA4bDEc5b088ec980254d6a2Da3c72'
+  },
+  invocation: null,
+  revert: null,
+  shortMessage: 'execution reverted (unknown custom error)',
+  info: {
+    error: {
+      code: 3,
+      data: '0x8baa579f',
+      message: 'EVM revert instruction without description message'
+    },
+    payload: {
+      method: 'eth_estimateGas',
+      params: [Array],
+      id: 7,
+      jsonrpc: '2.0'
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "reliq",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Privacy-first digital inheritance protocol using BITE encryption on SKALE",
+  "workspaces": [
+    "packages/*",
+    "test-suite"
+  ],
+  "scripts": {
+    "contracts:build": "cd packages/contracts && forge build",
+    "contracts:test": "cd packages/contracts && forge test",
+    "contracts:deploy": "cd packages/contracts && forge script script/DeployReliq.s.sol --broadcast",
+    "backend:dev": "cd packages/backend && npm run dev",
+    "backend:build": "cd packages/backend && npm run build",
+    "frontend:dev": "cd packages/frontend && npm run dev",
+    "frontend:build": "cd packages/frontend && npm run build",
+    "test": "cd test-suite && npm test",
+    "test:01": "cd test-suite && npm run test:01",
+    "test:02": "cd test-suite && npm run test:02",
+    "test:03": "cd test-suite && npm run test:03",
+    "test:04": "cd test-suite && npm run test:04",
+    "test:05": "cd test-suite && npm run test:05"
+  },
+  "keywords": [
+    "SKALE",
+    "BITE",
+    "digital-inheritance",
+    "privacy",
+    "blockchain"
+  ],
+  "author": "Reliq Team",
+  "license": "MIT"
+}

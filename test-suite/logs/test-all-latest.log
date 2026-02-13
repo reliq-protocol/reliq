@@ -1,0 +1,40 @@
+
+> relic-test-suite@1.0.0 test:all
+> tsx tests/run-all-tests.ts
+
+╔════════════════════════════════════════╗
+║  Reliq Protocol Complete Test Suite   ║
+╚════════════════════════════════════════╝
+
+Session ID: 2026-02-13_17-58-06
+
+
+══════════════════════════════════════════════════
+Running Step 1: Create Vault with BITE Encryption
+══════════════════════════════════════════════════
+
+Error in Step 1: Command failed: npx tsx test-suite/step1-create-vault.ts 2026-02-13_17-58-06
+npm warn exec The following package was not found and will be installed: tsx@4.21.0
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-suite/step1-create-vault.ts' imported from /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/
+    at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+    at moduleResolve (node:internal/modules/esm/resolve:864:10)
+    at defaultResolve (node:internal/modules/esm/resolve:990:11)
+    at nextResolve (node:internal/modules/esm/hooks:748:28)
+    at resolveBase (file:///Users/yulun/.npm/_npx/fd45a72a545557e9/node_modules/tsx/dist/esm/index.mjs?1771005492320:2:3744)
+    at resolveDirectory (file:///Users/yulun/.npm/_npx/fd45a72a545557e9/node_modules/tsx/dist/esm/index.mjs?1771005492320:2:4243)
+    at resolveTsPaths (file:///Users/yulun/.npm/_npx/fd45a72a545557e9/node_modules/tsx/dist/esm/index.mjs?1771005492320:2:4984)
+    at resolve (file:///Users/yulun/.npm/_npx/fd45a72a545557e9/node_modules/tsx/dist/esm/index.mjs?1771005492320:2:5361)
+    at nextResolve (node:internal/modules/esm/hooks:748:28)
+    at Hooks.resolve (node:internal/modules/esm/hooks:240:30) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-suite/step1-create-vault.ts'
+}
+
+Node.js v24.10.0
+
+
+❌ Step 1 failed. Stopping test suite.

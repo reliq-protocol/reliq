@@ -1,0 +1,20 @@
+==================================
+Step 5.5: Trigger Vault
+Timestamp: 2026-02-13T17:59:45.901Z
+==================================
+
+Transaction Hash: 0xebf88377157f7d175f5dbed16db06c3ea020694c5bee5e5da829d6ce4ceb1cfd
+Explorer: https://base-sepolia-testnet-explorer.skalenodes.com/tx/0xebf88377157f7d175f5dbed16db06c3ea020694c5bee5e5da829d6ce4ceb1cfd
+Gas Used: 59979
+
+--- Input ---
+{
+  "vaultId": "3",
+  "beneficiary": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+}
+
+--- Output ---
+{
+  "txHash": "0xebf88377157f7d175f5dbed16db06c3ea020694c5bee5e5da829d6ce4ceb1cfd",
+  "amountTransferred": "0.0001"
+}

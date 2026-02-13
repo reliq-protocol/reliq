@@ -1,0 +1,23 @@
+{
+    "name": "relic-test-suite",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "test:01": "tsx tests/01-create-vault.ts",
+        "test:02": "tsx tests/02-check-vault.ts",
+        "test:03": "tsx tests/03-heartbeat.ts",
+        "test:04": "tsx tests/04-trigger-vault.ts",
+        "test:05": "tsx tests/05-complete-workflow-demo.ts",
+        "test:all": "tsx tests/run-all-tests.ts"
+    },
+    "dependencies": {
+        "@skalenetwork/bite": "^0.7.1",
+        "ethers": "^6.13.4",
+        "dotenv": "^16.4.7"
+    },
+    "devDependencies": {
+        "@types/node": "^22.10.5",
+        "tsx": "^4.19.2",
+        "typescript": "^5.7.3"
+    }
+}

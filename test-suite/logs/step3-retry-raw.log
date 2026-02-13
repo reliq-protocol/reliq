@@ -1,0 +1,33 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 3: Send Heartbeat Response
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 Test session: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_18-02-48
+Vault ID: 8
+
+Timestamp: 1771005858
+Nonce: 295064
+
+Domain Separator: 0xe81f2e657ac3004555ac318c86ca070cb90aaa725cff21f2b93f0f5a91969148
+Heartbeat TypeHash: 0x64b69b4e3bb3e2dc7670f23ca449710dad1fe4af066b05c5123111b18e93dbaf
+
+Struct Hash: 0xddb3043c9720acbe0a0d872ab912d75820130462b7a24eb70c0b475f2ce888ff
+Digest: 0x77f7c529bf9265ac59d6e9601027dfd2b510655ec740ed51c865fa55109230ee
+
+Chain ID: 324705682
+Signature: 0xda19f801ad75e41e615c54274ef0bf834a4fd96f52ae5e5a578cb9eda73163a62d591311ea07712074bcd146bc596475ae95f630055b70c3d7c4c85c7256b94c1b
+
+📤 Sending heartbeat transaction...
+Transaction hash: 0x402faac209ecc6fa9d88796f18724117fad7ff4a8ab7ca1e4ad98b522deecd2a
+Waiting for confirmation...
+
+✅ Heartbeat recorded!
+Block: 876140
+Gas used: 61819
+
+✅ Step 3: Send Heartbeat Response
+   TX: 0x402faac209ecc6fa9d88796f18724117fad7ff4a8ab7ca1e4ad98b522deecd2a
+   Log: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_18-02-48/step_3.log
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 3 Complete!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

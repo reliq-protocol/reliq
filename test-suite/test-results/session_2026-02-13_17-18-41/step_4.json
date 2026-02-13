@@ -1,0 +1,12 @@
+{
+  "step": "4",
+  "description": "Check Trigger Status (Cannot Trigger)",
+  "timestamp": "2026-02-13T17:21:55.193Z",
+  "input": {
+    "vaultId": "0"
+  },
+  "output": {
+    "canTrigger": false,
+    "reason": "Timeout not reached or recent heartbeat"
+  }
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Relic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            colors: {
+              primary: {
+                DEFAULT: '#fddf49',
+                dark: '#e0c236',
+                dim: 'rgba(253, 223, 73, 0.1)',
+              },
+              background: {
+                light: '#f8f8f5',
+                dark: '#1a1810',
+                darker: '#0f0e08',
+              },
+              surface: {
+                DEFAULT: '#2a2718',
+                light: 'rgba(255, 255, 255, 0.05)',
+              }
+            },
+            animation: {
+              'spin-slow': 'spin 8s linear infinite',
+              'spin-reverse-slow': 'spin 12s linear infinite reverse',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      body {
+        background-color: #1a1810;
+        color: #f8fafc;
+      }
+      /* Custom scrollbar for webkit */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(253, 223, 73, 0.2);
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(253, 223, 73, 0.4);
+      }
+      
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      
+      .neon-glow {
+        box-shadow: 0 0 20px rgba(253, 223, 73, 0.2), 
+                    0 0 40px rgba(253, 223, 73, 0.1);
+      }
+
+      .btn-3d {
+        transition: all 0.1s ease;
+        box-shadow: 0px 4px 0px 0px #bba329, 
+                    0px 8px 10px rgba(0,0,0,0.4);
+        transform: translateY(0);
+      }
+      
+      .btn-3d:active {
+        transform: translateY(4px);
+        box-shadow: 0px 0px 0px 0px #bba329,
+                    inset 0px 2px 5px rgba(0,0,0,0.2);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.564.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

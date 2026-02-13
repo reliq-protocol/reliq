@@ -1,0 +1,31 @@
+
+> relic-test-suite@1.0.0 test:01
+> tsx tests/01-create-vault.ts
+
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/tests/utils' imported from /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/tests/01-create-vault.ts
+    at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+    at moduleResolve (node:internal/modules/esm/resolve:864:10)
+    at defaultResolve (node:internal/modules/esm/resolve:990:11)
+    at nextResolve (node:internal/modules/esm/hooks:748:28)
+    at resolveBase (file:///Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/tsx/dist/esm/index.mjs?1771005432570:2:3744)
+    at async resolveDirectory (file:///Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/tsx/dist/esm/index.mjs?1771005432570:2:4237)
+    at async resolve (file:///Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/tsx/dist/esm/index.mjs?1771005432570:2:5355)
+    at async nextResolve (node:internal/modules/esm/hooks:748:22)
+    at async Hooks.resolve (node:internal/modules/esm/hooks:240:24)
+    at async handleMessage (node:internal/modules/esm/worker:201:18) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/tests/utils'
+}
+
+Node.js v24.10.0
+npm error Lifecycle script `test:01` failed with error:
+npm error code 1
+npm error path /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite
+npm error workspace relic-test-suite@1.0.0
+npm error location /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite
+npm error command failed
+npm error command sh -c tsx tests/01-create-vault.ts

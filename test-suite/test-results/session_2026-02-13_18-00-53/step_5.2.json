@@ -1,0 +1,15 @@
+{
+  "step": "5.2",
+  "description": "Force Expire Timeout (DEMO)",
+  "timestamp": "2026-02-13T18:01:07.570Z",
+  "input": {
+    "vaultId": "7"
+  },
+  "output": {
+    "txHash": "0x4a77c202eadc40bf711db9c0a4f60cde24caf05396a8e767cdaef643bdc4792c"
+  },
+  "transactionHash": "0x4a77c202eadc40bf711db9c0a4f60cde24caf05396a8e767cdaef643bdc4792c",
+  "explorerUrl": "https://base-sepolia-testnet-explorer.skalenodes.com/tx/0x4a77c202eadc40bf711db9c0a4f60cde24caf05396a8e767cdaef643bdc4792c",
+  "gasUsed": "15895",
+  "status": "success"
+}

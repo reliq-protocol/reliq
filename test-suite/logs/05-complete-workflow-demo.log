@@ -1,0 +1,86 @@
+
+> relic-test-suite@1.0.0 test:05
+> tsx 05-complete-workflow-demo.ts
+
+═══════════════════════════════════════════════════
+   Relic Complete Workflow Demo
+═══════════════════════════════════════════════════
+
+📁 Test session: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_17-26-15
+Contract: 0x2277f5210daAaab3E26e565c96E5F9BeDb46662B
+Deployer: 0x9554CEb8aEAA4bDEc5b088ec980254d6a2Da3c72
+
+━━━ STEP 1: Create Vault ━━━
+
+Payload: {
+  beneficiary: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
+  amount: '100000000000000',
+  message: '🎉 Vault successfully triggered and decrypted!'
+}
+
+🔐 Encrypting with BITE...
+✅ Encrypted
+
+📤 Creating vault...
+✅ Vault created!
+   Vault ID: 0
+   TX: 0x01262a6c19417b3441442d4ea39a07f4c71dfae85b9553df4987c17c8a12f290
+   Gas: 442639
+
+✅ Step 5.1: Create Vault
+   TX: 0x01262a6c19417b3441442d4ea39a07f4c71dfae85b9553df4987c17c8a12f290
+   Log: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_17-26-15/step_5.1.log
+━━━ STEP 2: Force Expire Timeout (DEMO) ━━━
+
+⚠️  Using DEMO backdoor to instantly expire timeout
+
+✅ Timeout expired!
+   TX: 0xdd3274e028b06e559df11f1a69642037b6fe906f1c41ff7e95f292565156f7bf
+   Gas: 15883
+
+✅ Step 5.2: Force Expire Timeout (DEMO)
+   TX: 0xdd3274e028b06e559df11f1a69642037b6fe906f1c41ff7e95f292565156f7bf
+   Log: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_17-26-15/step_5.2.log
+Can trigger now: true
+
+━━━ STEP 3: Retrieve Encrypted Payload ━━━
+
+Encrypted payload length: 882 bytes
+
+━━━ STEP 4: Decrypt BITE Payload ━━━
+
+🔓 Decrypting payload with BITE...
+⏳ Decryption not yet available (expected for this demo)
+   Original payload: {
+  beneficiary: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
+  amount: '100000000000000',
+  message: '🎉 Vault successfully triggered and decrypted!'
+}
+
+━━━ STEP 5: Trigger Vault ━━━
+
+Triggering vault for beneficiary: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+
+✅ Vault triggered!
+   TX: 0x0fd9c6a3d40b50df222728e31a3b260bb63995aeed77f7173f444e12675004e0
+   Gas: 84967
+   Amount transferred: 0.0001 ETH
+   To: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+
+✅ Step 5.5: Trigger Vault
+   TX: 0x0fd9c6a3d40b50df222728e31a3b260bb63995aeed77f7173f444e12675004e0
+   Log: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_17-26-15/step_5.5.log
+═══════════════════════════════════════════════════
+   ✅ Complete Workflow Demo Successful!
+═══════════════════════════════════════════════════
+
+Summary:
+  1. Created vault with BITE encryption
+  2. Used DEMO backdoor to instantly expire timeout
+  3. Verified vault can be triggered
+  4. Triggered vault successfully
+  5. Transferred 0.0001 ETH to beneficiary
+
+Session: 2026-02-13_17-26-15
+Results: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_17-26-15
+

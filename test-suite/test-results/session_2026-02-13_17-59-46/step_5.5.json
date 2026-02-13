@@ -1,0 +1,17 @@
+{
+  "step": "5.5",
+  "description": "Trigger Vault",
+  "timestamp": "2026-02-13T18:00:07.229Z",
+  "input": {
+    "vaultId": "5",
+    "beneficiary": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+  },
+  "output": {
+    "txHash": "0x656af295288d2093c153431b0d88375dc542d84314ff20a1943bf54ee3737456",
+    "amountTransferred": "0.0001"
+  },
+  "transactionHash": "0x656af295288d2093c153431b0d88375dc542d84314ff20a1943bf54ee3737456",
+  "explorerUrl": "https://base-sepolia-testnet-explorer.skalenodes.com/tx/0x656af295288d2093c153431b0d88375dc542d84314ff20a1943bf54ee3737456",
+  "gasUsed": "59979",
+  "status": "success"
+}

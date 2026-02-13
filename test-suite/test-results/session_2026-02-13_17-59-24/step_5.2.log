@@ -1,0 +1,18 @@
+==================================
+Step 5.2: Force Expire Timeout (DEMO)
+Timestamp: 2026-02-13T17:59:38.753Z
+==================================
+
+Transaction Hash: 0x8a353b1d459dd8b2758a24891f428ed0482eb33077aeb347d08ae1e7870f9ab3
+Explorer: https://base-sepolia-testnet-explorer.skalenodes.com/tx/0x8a353b1d459dd8b2758a24891f428ed0482eb33077aeb347d08ae1e7870f9ab3
+Gas Used: 15895
+
+--- Input ---
+{
+  "vaultId": "3"
+}
+
+--- Output ---
+{
+  "txHash": "0x8a353b1d459dd8b2758a24891f428ed0482eb33077aeb347d08ae1e7870f9ab3"
+}

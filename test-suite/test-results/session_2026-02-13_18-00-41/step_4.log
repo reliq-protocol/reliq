@@ -1,0 +1,19 @@
+==================================
+Step 4: Check Trigger Status (Cannot Trigger)
+Timestamp: 2026-02-13T18:00:53.189Z
+==================================
+
+
+
+
+
+--- Input ---
+{
+  "vaultId": "6"
+}
+
+--- Output ---
+{
+  "canTrigger": false,
+  "reason": "Timeout not reached or recent heartbeat"
+}

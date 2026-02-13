@@ -1,0 +1,25 @@
+
+> relic-test-suite@1.0.0 test:01
+> tsx tests/01-create-vault.ts
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 1: Create Vault with BITE Encryption
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 Test session: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_17-47-50
+TypeError: invalid private key (argument="privateKey", value="[ REDACTED ]", code=INVALID_ARGUMENT, version=6.16.0)
+    at makeError (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/ethers/src.ts/utils/errors.ts:691:21)
+    at assert (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/ethers/src.ts/utils/errors.ts:719:25)
+    at assertArgument (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/ethers/src.ts/utils/errors.ts:731:5)
+    at new BaseWallet (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/ethers/src.ts/wallet/base-wallet.ts:48:9)
+    at new Wallet (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/ethers/src.ts/wallet/wallet.ts:47:9)
+    at main (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/tests/01-create-vault.ts:43:20)
+    at <anonymous> (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/tests/01-create-vault.ts:149:1)
+    at ModuleJob.run (node:internal/modules/esm/module_job:377:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:691:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  code: 'INVALID_ARGUMENT',
+  argument: 'privateKey',
+  value: '[ REDACTED ]',
+  shortMessage: 'invalid private key'
+}

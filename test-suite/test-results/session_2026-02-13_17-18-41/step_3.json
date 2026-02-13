@@ -1,0 +1,29 @@
+{
+  "step": "3",
+  "description": "Send Heartbeat Response",
+  "timestamp": "2026-02-13T17:21:06.938Z",
+  "input": {
+    "function": "respondViaAgent(uint256,uint256,uint256,bytes)",
+    "parameters": {
+      "vaultId": "0",
+      "timestamp": 1771003259,
+      "nonce": 357030,
+      "signature": "0xe1b03891cac57f5241054c933eed9599032c64ead6944564b148b2552d4d84700ccdf321d7671f99d666dc7ccff50ed45cc0f88ff205446323fd2806fb6364a21c"
+    },
+    "eip712": {
+      "domainSeparator": "0xa679c7f8dda7d587c1def8fcb57982d517370d7d1fbd7806af8fe23100043897",
+      "heartbeatTypehash": "0x64b69b4e3bb3e2dc7670f23ca449710dad1fe4af066b05c5123111b18e93dbaf",
+      "structHash": "0x803d5170ec5ce7027d9259f02c8ef83f7d6ee8dab27e392a5bb7c5378f571838",
+      "digest": "0xd2337704920054340bc23aaa9f2ee412b3b620ef8f9f19499291fa0bc7ed87ac"
+    }
+  },
+  "output": {
+    "blockNumber": 875865,
+    "gasUsed": "61807",
+    "status": "success"
+  },
+  "transactionHash": "0x77c9fb080b326173af25a94458f6afeb35b194a9450ac3e059b779dfe7aac13c",
+  "explorerUrl": "https://base-sepolia-testnet-explorer.skalenodes.com/tx/0x77c9fb080b326173af25a94458f6afeb35b194a9450ac3e059b779dfe7aac13c",
+  "gasUsed": "61807",
+  "status": "success"
+}

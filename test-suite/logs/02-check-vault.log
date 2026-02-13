@@ -1,0 +1,26 @@
+
+> relic-test-suite@1.0.0 test:02
+> tsx 02-check-vault.ts
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 2: Check Vault Details
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 Test session: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_17-19-35
+Vault ID: 0
+
+🔍 Querying vault details...
+
+Vault Details:
+  Owner: 0x9554CEb8aEAA4bDEc5b088ec980254d6a2Da3c72
+  Last Response: 2026-02-13T17:18:44.000Z
+  Timeout: 300 seconds
+  Amount: 0.0001 ETH
+  Executed: false
+  Can Trigger: false
+
+✅ Step 2: Check Vault Details
+   Log: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_17-19-35/step_2.log
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 2 Complete!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

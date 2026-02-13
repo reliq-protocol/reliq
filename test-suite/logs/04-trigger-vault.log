@@ -1,0 +1,21 @@
+
+> relic-test-suite@1.0.0 test:04
+> tsx 04-trigger-vault.ts 2026-02-13_17-18-41
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 4: Trigger Vault
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 Test session: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_17-18-41
+Vault ID: 0
+
+Can trigger: false
+
+❌ Vault cannot be triggered yet.
+   Timeout period has not passed or heartbeat is recent.
+
+✅ Step 4: Check Trigger Status (Cannot Trigger)
+   Log: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_17-18-41/step_4.log
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 4 Complete (not triggered)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

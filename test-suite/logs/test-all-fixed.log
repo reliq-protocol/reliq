@@ -1,0 +1,242 @@
+
+> relic-test-suite@1.0.0 test:all
+> tsx tests/run-all-tests.ts
+
+╔════════════════════════════════════════╗
+║  Reliq Protocol Complete Test Suite   ║
+╚════════════════════════════════════════╝
+
+Session ID: 2026-02-13_18-00-41
+
+
+══════════════════════════════════════════════════
+Running Step 1: Create Vault with BITE Encryption
+══════════════════════════════════════════════════
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 1: Create Vault with BITE Encryption
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 Test session: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_18-00-41
+Deployer: 0x9554CEb8aEAA4bDEc5b088ec980254d6a2Da3c72
+Contract: 0x2277f5210daAaab3E26e565c96E5F9BeDb46662B
+Amount: 0.0001 ETH
+
+Vault payload: {
+  beneficiary: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
+  amount: '100000000000000',
+  message: 'This is a test vault. If you receive this, the vault was successfully triggered!'
+}
+
+Payload (hex): 0x7b2262656e6566696369617279223a22307837343264333543633636333443303533323932356133623834344263343534653434333866343465222c22616d6f756e74223a22313030303030303030303030303030222c226d657373616765223a225468697320697320612074657374207661756c742e20496620796f75207265636569766520746869732c20746865207661756c7420776173207375636365737366756c6c792074726967676572656421227d
+
+🔐 Encrypting payload with BITE...
+Encrypted payload: 0xf901d580b901d1010a665f8487541a1599fa946856dd1767390722b3da69c704...
+
+Vault count before: 6
+
+📤 Submitting transaction...
+Transaction hash: 0x8c22f644c4331857e2bb0f67c77236067ae398d36cdd7620b24b022e53121f9a
+Waiting for confirmation...
+
+✅ Transaction confirmed!
+Block: 876117
+Gas used: 448266
+
+Created vault ID: 6
+Total vaults: 7
+
+✅ Step 1: Create Vault with BITE Encryption
+   TX: 0x8c22f644c4331857e2bb0f67c77236067ae398d36cdd7620b24b022e53121f9a
+   Log: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_18-00-41/step_1.log
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 1 Complete!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+══════════════════════════════════════════════════
+Running Step 2: Check Vault Details
+══════════════════════════════════════════════════
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 2: Check Vault Details
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 Test session: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_18-00-41
+Vault ID: 6
+
+🔍 Querying vault details...
+
+Vault Details:
+  Owner: 0x9554CEb8aEAA4bDEc5b088ec980254d6a2Da3c72
+  Last Response: 2026-02-13T18:00:45.000Z
+  Timeout: 300 seconds
+  Amount: 0.0001 ETH
+  Executed: false
+  Can Trigger: false
+
+✅ Step 2: Check Vault Details
+   Log: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_18-00-41/step_2.log
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 2 Complete!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+══════════════════════════════════════════════════
+Running Step 3: Send Heartbeat Response
+══════════════════════════════════════════════════
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 3: Send Heartbeat Response
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 Test session: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_18-00-41
+Vault ID: 6
+
+
+TypeError: invalid private key (argument="privateKey", value="[ REDACTED ]", code=INVALID_ARGUMENT, version=6.16.0)
+    at makeError (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/ethers/src.ts/utils/errors.ts:691:21)
+    at assert (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/ethers/src.ts/utils/errors.ts:719:25)
+    at assertArgument (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/ethers/src.ts/utils/errors.ts:731:5)
+    at new BaseWallet (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/ethers/src.ts/wallet/base-wallet.ts:48:9)
+    at new Wallet (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/node_modules/ethers/src.ts/wallet/wallet.ts:47:9)
+    at main (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/tests/03-heartbeat.ts:46:20)
+    at <anonymous> (/Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/tests/03-heartbeat.ts:168:1)
+    at ModuleJob.run (node:internal/modules/esm/module_job:377:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:691:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  code: 'INVALID_ARGUMENT',
+  argument: 'privateKey',
+  value: '[ REDACTED ]',
+  shortMessage: 'invalid private key'
+}
+
+
+══════════════════════════════════════════════════
+Running Step 4: Check Trigger Vault
+══════════════════════════════════════════════════
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 4: Trigger Vault
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 Test session: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_18-00-41
+Vault ID: 6
+
+Can trigger: false
+
+❌ Vault cannot be triggered yet.
+   Timeout period has not passed or heartbeat is recent.
+
+✅ Step 4: Check Trigger Status (Cannot Trigger)
+   Log: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_18-00-41/step_4.log
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Step 4 Complete (not triggered)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+══════════════════════════════════════════════════
+Running Step 5: Complete Workflow Demo
+══════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════
+   Reliq Complete Workflow Demo
+═══════════════════════════════════════════════════
+
+📁 Test session: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_18-00-53
+Contract: 0x2277f5210daAaab3E26e565c96E5F9BeDb46662B
+Deployer: 0x9554CEb8aEAA4bDEc5b088ec980254d6a2Da3c72
+
+━━━ STEP 1: Create Vault ━━━
+
+Payload: {
+  beneficiary: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
+  amount: '100000000000000',
+  message: '🎉 Vault successfully triggered and decrypted!'
+}
+
+🔐 Encrypting with BITE...
+✅ Encrypted
+
+📤 Creating vault...
+✅ Vault created!
+   Vault ID: 7
+   TX: 0x5482f03cd361cd417ca646a576346f3133b2ae9ddadd5755c8606587aa5ac49d
+   Gas: 427639
+
+✅ Step 5.1: Create Vault
+   TX: 0x5482f03cd361cd417ca646a576346f3133b2ae9ddadd5755c8606587aa5ac49d
+   Log: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_18-00-53/step_5.1.log
+━━━ STEP 2: Force Expire Timeout (DEMO) ━━━
+
+⚠️  Using DEMO backdoor to instantly expire timeout
+
+✅ Timeout expired!
+   TX: 0x4a77c202eadc40bf711db9c0a4f60cde24caf05396a8e767cdaef643bdc4792c
+   Gas: 15895
+
+✅ Step 5.2: Force Expire Timeout (DEMO)
+   TX: 0x4a77c202eadc40bf711db9c0a4f60cde24caf05396a8e767cdaef643bdc4792c
+   Log: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_18-00-53/step_5.2.log
+Can trigger now: true
+
+━━━ STEP 3: Retrieve Encrypted Payload ━━━
+
+Encrypted payload length: 882 bytes
+
+━━━ STEP 4: Decrypt BITE Payload ━━━
+
+🔓 Decrypting payload with BITE...
+⏳ Decryption not yet available (expected for this demo)
+   Original payload: {
+  beneficiary: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
+  amount: '100000000000000',
+  message: '🎉 Vault successfully triggered and decrypted!'
+}
+
+━━━ STEP 5: Trigger Vault ━━━
+
+Triggering vault for beneficiary: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+
+✅ Vault triggered!
+   TX: 0x465bad558de0f73f2ea491d7e073c3a0e90d16f610396a245a111e54e5934587
+   Gas: 59979
+   Amount transferred: 0.0001 ETH
+   To: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+
+✅ Step 5.5: Trigger Vault
+   TX: 0x465bad558de0f73f2ea491d7e073c3a0e90d16f610396a245a111e54e5934587
+   Log: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_18-00-53/step_5.5.log
+═══════════════════════════════════════════════════
+   ✅ Complete Workflow Demo Successful!
+═══════════════════════════════════════════════════
+
+Summary:
+  1. Created vault with BITE encryption
+  2. Used DEMO backdoor to instantly expire timeout
+  3. Verified vault can be triggered
+  4. Triggered vault successfully
+  5. Transferred 0.0001 ETH to beneficiary
+
+Session: 2026-02-13_18-00-53
+Results: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_18-00-53
+
+
+
+
+
+╔════════════════════════════════════════╗
+║         Test Suite Summary             ║
+╚════════════════════════════════════════╝
+
+Session ID: 2026-02-13_18-00-41
+Results Directory: test-results/session_2026-02-13_18-00-41
+
+Results:
+  ✅ Step 1: PASSED
+  ✅ Step 2: PASSED
+  ✅ Step 3: PASSED
+  ✅ Step 4: PASSED
+  ✅ Step 5: PASSED
+
+🎉 All tests completed successfully!
