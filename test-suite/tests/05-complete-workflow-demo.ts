@@ -1,38 +1,32 @@
 /**
- * 05 - Complete Workflow Demo with Instant Trigger
+ * Step 5: Complete Workflow Demo (With Heartbeat Expiration)
  * 
- * This test demonstrates the COMPLETE Reliq protocol flow:
- * 1. Create vault with BITE encryption
- * 2. Use forceExpireTimeout() to instantly expire timeout (DEMO function)
- * 3. Trigger vault
- * 4. Decrypt BITE payload to reveal beneficiary
+ * 1. Create Vault
+ * 2. Force Expire (Backdoor)
+ * 3. AI Agent Unlock
+ * 4. Final Verification
  */
 
 import { ethers } from 'ethers';
 import { BITE } from '@skalenetwork/bite';
-import { TestLogger, formatTimestamp, generateSessionId, loadEnv } from './utils'; loadEnv(); loadEnv();
+import { TestLogger, formatTimestamp, generateSessionId, loadEnv, sleep } from './utils'; loadEnv();
 
 
 const RPC_URL = process.env.RPC_URL!;
 const PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY!;
-const CONTRACT_ADDRESS = '0x2277f5210daAaab3E26e565c96E5F9BeDb46662B'; // New deployment
-
-const TEST_AMOUNT = ethers.parseEther('0.0001');
-const TIMEOUT = 300; // 5 minutes (won't matter since we'll force expire)
+const CONTRACT_ADDRESS = '0x1F24BB1C838E169a383Eabc52302394c24FC1538';
 
 const VAULT_ABI = [
-    'function createVault(bytes encryptedPayload, uint256 timeout) payable returns (uint256)',
+    'function createVault(bytes encryptedTx, bytes encryptedCondition, uint256 timeout) payable returns (uint256)',
+    'function unlockVault(uint256 vaultId) external',
+    'function forceExpire(uint256 vaultId) external',
+    'function getVault(uint256 vaultId) view returns (tuple(address owner, bytes encryptedCondition, uint256 amount, uint256 lastResponse, uint256 timeout, bool isUnlocked, bool executed))',
     'function vaultCount() view returns (uint256)',
-    'function forceExpireTimeout(uint256 vaultId)',
-    'function canTrigger(uint256 vaultId) view returns (bool)',
-    'function triggerVault(uint256 vaultId, address beneficiary)',
-    'function vaults(uint256) view returns (address owner, bytes encryptedPayload, uint256 lastResponse, uint256 timeout, uint256 amount, bool executed)',
-    'event VaultExecuted(uint256 indexed vaultId, address indexed beneficiary, uint256 amount)',
 ];
 
 async function main() {
     console.log('═══════════════════════════════════════════════════');
-    console.log('   Reliq Complete Workflow Demo');
+    console.log('   ReliQ Complete Workflow Demo (Backdoor Flow)');
     console.log('═══════════════════════════════════════════════════');
     console.log('');
 
@@ -42,188 +36,106 @@ async function main() {
     const provider = new ethers.JsonRpcProvider(RPC_URL);
     const wallet = new ethers.Wallet(PRIVATE_KEY, provider);
     const contract = new ethers.Contract(CONTRACT_ADDRESS, VAULT_ABI, wallet);
-    const bite = new BITE(RPC_URL);
+    const bite = new BITE("https://base-sepolia-testnet.skalenodes.com/v1/bite-v2-sandbox");
 
     console.log(`Contract: ${CONTRACT_ADDRESS}`);
     console.log(`Deployer: ${wallet.address}`);
     console.log('');
 
-    // ========================================
-    // STEP 1: Create Vault with BITE Encryption
-    // ========================================
+    // --- STEP 1: Create Vault ---
     console.log('━━━ STEP 1: Create Vault ━━━');
-    console.log('');
-
-    const beneficiaryAddress = '0x742d35Cc6634C0532925a3b844Bc454e4438f44e';
+    const timeout = 3600; // 1 hour timeout
+    const amount = ethers.parseEther('0.0001');
     const payload = {
-        beneficiary: beneficiaryAddress,
-        amount: TEST_AMOUNT.toString(),
-        message: '🎉 Vault successfully triggered and decrypted!',
+        beneficiary: wallet.address,
+        amount: amount.toString(),
+        message: '🎉 Vault successfully triggered and decrypted!'
     };
 
-    console.log('Payload:', payload);
-    console.log('');
-
-    const payloadJson = JSON.stringify(payload);
-    const payloadHex = '0x' + Buffer.from(payloadJson, 'utf8').toString('hex');
-
-    console.log('🔐 Encrypting with BITE...');
-    const encryptedPayload = await bite.encryptMessage(payloadHex);
-    console.log('✅ Encrypted');
-    console.log('');
+    const payloadHex = '0x' + Buffer.from(JSON.stringify(payload)).toString('hex');
+    const encrypted = await bite.encryptMessage(payloadHex);
+    console.log('🔐 Encrypted with BITE');
 
     console.log('📤 Creating vault...');
-    const createTx = await contract.createVault(encryptedPayload, TIMEOUT, {
-        value: TEST_AMOUNT,
+    const ctxFee = ethers.parseEther('0.06');
+    const tx1 = await contract.createVault(encrypted, encrypted, timeout, {
+        value: amount + ctxFee
     });
+    const receipt1 = await tx1.wait();
 
-    const createReceipt = await createTx.wait();
     const vaultCount = await contract.vaultCount();
-    const vaultId = vaultCount - 1n;
-
-    console.log(`✅ Vault created!`);
-    console.log(`   Vault ID: ${vaultId}`);
-    console.log(`   TX: ${createTx.hash}`);
-    console.log(`   Gas: ${createReceipt?.gasUsed.toString()}`);
-    console.log('');
+    const id = vaultCount - 1n;
+    console.log(`✅ Vault created! ID: ${id.toString()}`);
+    logger.saveData('vault_id.txt', id.toString());
 
     logger.logTransaction({
-        step: '5.1',
+        step: '1',
         description: 'Create Vault',
         timestamp: formatTimestamp(),
-        input: { encryptedPayload, timeout: TIMEOUT, value: TEST_AMOUNT.toString() },
-        output: { vaultId: vaultId.toString(), txHash: createTx.hash },
-        transactionHash: createTx.hash,
-        explorerUrl: `https://base-sepolia-testnet-explorer.skalenodes.com/tx/${createTx.hash}`,
-        gasUsed: createReceipt?.gasUsed.toString(),
-        status: 'success',
+        input: { timeout, amount: '0.0001' },
+        output: { vaultId: id.toString(), txHash: tx1.hash },
+        transactionHash: tx1.hash
     });
-
-    // ========================================
-    // STEP 2: Force Expire Timeout (DEMO)
-    // ========================================
-    console.log('━━━ STEP 2: Force Expire Timeout (DEMO) ━━━');
     console.log('');
 
-    console.log('⚠️  Using DEMO backdoor to instantly expire timeout');
-    console.log('');
-
-    const expireTx = await contract.forceExpireTimeout(vaultId);
-    const expireReceipt = await expireTx.wait();
-
-    console.log(`✅ Timeout expired!`);
-    console.log(`   TX: ${expireTx.hash}`);
-    console.log(`   Gas: ${expireReceipt?.gasUsed.toString()}`);
-    console.log('');
+    // --- STEP 2: Force Expire ---
+    console.log('━━━ STEP 2: Force Expire (Backdoor) ━━━');
+    console.log('⚠️ Simulating owner inactivity (expiration)...');
+    const tx2 = await contract.forceExpire(id);
+    await tx2.wait();
+    console.log('✅ Heartbeat expired via backdoor');
 
     logger.logTransaction({
-        step: '5.2',
-        description: 'Force Expire Timeout (DEMO)',
+        step: '2',
+        description: 'Force Expire Heartbeat',
         timestamp: formatTimestamp(),
-        input: { vaultId: vaultId.toString() },
-        output: { txHash: expireTx.hash },
-        transactionHash: expireTx.hash,
-        explorerUrl: `https://base-sepolia-testnet-explorer.skalenodes.com/tx/${expireTx.hash}`,
-        gasUsed: expireReceipt?.gasUsed.toString(),
-        status: 'success',
+        input: { vaultId: id.toString() },
+        output: { status: 'expired' },
+        transactionHash: tx2.hash
     });
-
-    // Verify can trigger
-    const canTrigger = await contract.canTrigger(vaultId);
-    console.log(`Can trigger now: ${canTrigger}`);
     console.log('');
 
-    // ========================================
-    // STEP 3: Get Encrypted Payload from Contract
-    // ========================================
-    console.log('━━━ STEP 3: Retrieve Encrypted Payload ━━━');
+    // --- STEP 3: AI Agent Unlocks ---
+    console.log('━━━ STEP 3: AI Agent Unlocks ━━━');
+    console.log('🔓 Unlocking vault...');
+    const tx3 = await contract.unlockVault(id);
+    await tx3.wait();
+    console.log('✅ AI Agent triggered unlock');
+
+    logger.logTransaction({
+        step: '3',
+        description: 'AI Agent Unlock',
+        timestamp: formatTimestamp(),
+        input: { vaultId: id.toString() },
+        output: { status: 'unlocked' },
+        transactionHash: tx3.hash
+    });
     console.log('');
 
-    const vaultData = await contract.vaults(vaultId);
-    const [owner, storedEncryptedPayload, lastResponse, timeout, amount, executed] = vaultData;
+    // --- STEP 4: Final Verification ---
+    console.log('━━━ STEP 4: Final Verification ━━━');
+    console.log('⌛ Waiting for BITE execution...');
+    await sleep(3000);
+    const vault = await contract.getVault(id);
+    console.log(`  Unlocked: ${vault.isUnlocked}`);
+    console.log(`  Executed: ${vault.executed}`);
 
-    console.log(`Encrypted payload length: ${storedEncryptedPayload.length} bytes`);
-    console.log('');
-
-    // ========================================
-    // STEP 4: Decrypt BITE Payload
-    // ========================================
-    console.log('━━━ STEP 4: Decrypt BITE Payload ━━━');
-    console.log('');
-
-    console.log('🔓 Decrypting payload with BITE...');
-
-    try {
-        // Note: BITE decryption requires the transaction to be finalized
-        // In a real scenario, you would decrypt after triggering
-        // For demo, we'll show the process
-
-        // We'll use the createTx hash to try to decrypt
-        const decryptedData = await bite.getDecryptedTransactionData(createTx.hash);
-
-        if (decryptedData) {
-            console.log('✅ Decrypted data:', decryptedData);
-        } else {
-            console.log('⏳ Data not yet available for decryption (needs finality)');
-            console.log('   In production, this would decrypt after vault trigger');
-        }
-    } catch (error) {
-        console.log('⏳ Decryption not yet available (expected for this demo)');
-        console.log('   Original payload:', payload);
+    if (vault.executed) {
+        console.log('\n🌟 WORKFLOW COMPLETE: inheritance successfully settled!');
+    } else {
+        console.log('\n⏳ Still pending... (Note: Sandbox might take a few seconds)');
     }
-    console.log('');
-
-    //========================================
-    // STEP 5: Trigger Vault
-    // ========================================
-    console.log('━━━ STEP 5: Trigger Vault ━━━');
-    console.log('');
-
-    console.log(`Triggering vault for beneficiary: ${beneficiaryAddress}`);
-    console.log('');
-
-    const triggerTx = await contract.triggerVault(vaultId, beneficiaryAddress);
-    const triggerReceipt = await triggerTx.wait();
-
-    console.log(`✅ Vault triggered!`);
-    console.log(`   TX: ${triggerTx.hash}`);
-    console.log(`   Gas: ${triggerReceipt?.gasUsed.toString()}`);
-    console.log(`   Amount transferred: ${ethers.formatEther(TEST_AMOUNT)} ETH`);
-    console.log(`   To: ${beneficiaryAddress}`);
-    console.log('');
 
     logger.logTransaction({
-        step: '5.5',
-        description: 'Trigger Vault',
+        step: '4',
+        description: 'Final Verification',
         timestamp: formatTimestamp(),
-        input: { vaultId: vaultId.toString(), beneficiary: beneficiaryAddress },
-        output: {
-            txHash: triggerTx.hash,
-            amountTransferred: ethers.formatEther(TEST_AMOUNT),
-        },
-        transactionHash: triggerTx.hash,
-        explorerUrl: `https://base-sepolia-testnet-explorer.skalenodes.com/tx/${triggerTx.hash}`,
-        gasUsed: triggerReceipt?.gasUsed.toString(),
-        status: 'success',
+        input: { vaultId: id.toString() },
+        output: { isUnlocked: vault.isUnlocked, executed: vault.executed }
     });
 
-    // ========================================
-    // Summary
-    // ========================================
-    console.log('═══════════════════════════════════════════════════');
-    console.log('   ✅ Complete Workflow Demo Successful!');
-    console.log('═══════════════════════════════════════════════════');
-    console.log('');
-    console.log('Summary:');
-    console.log(`  1. Created vault with BITE encryption`);
-    console.log(`  2. Used DEMO backdoor to instantly expire timeout`);
-    console.log(`  3. Verified vault can be triggered`);
-    console.log(`  4. Triggered vault successfully`);
-    console.log(`  5. Transferred 0.0001 ETH to beneficiary`);
-    console.log('');
-    console.log(`Session: ${sessionId}`);
-    console.log(`Results: ${logger.getSessionDir()}`);
-    console.log('');
+    console.log('\n═══════════════════════════════════════════════════');
+    console.log(`All logs saved to: ${logger.getSessionDir()}`);
 }
 
 main().catch(console.error);

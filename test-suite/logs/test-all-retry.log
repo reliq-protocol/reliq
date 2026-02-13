@@ -1,9 +1,9 @@
 
-> relic-test-suite@1.0.0 test:all
+> ReliQ-test-suite@1.0.0 test:all
 > tsx tests/run-all-tests.ts
 
 ╔════════════════════════════════════════╗
-║  Reliq Protocol Complete Test Suite   ║
+║  ReliQ Protocol Complete Test Suite   ║
 ╚════════════════════════════════════════╝
 
 Session ID: 2026-02-13_17-59-34
@@ -147,7 +147,7 @@ Running Step 5: Complete Workflow Demo
 ══════════════════════════════════════════════════
 
 ═══════════════════════════════════════════════════
-   Reliq Complete Workflow Demo
+   ReliQ Complete Workflow Demo
 ═══════════════════════════════════════════════════
 
 📁 Test session: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_17-59-46

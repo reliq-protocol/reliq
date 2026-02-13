@@ -48,7 +48,7 @@ canTrigger(uint256 vaultId) view returns (bool)
 
 ### Vault 觸發條件
 
-根據合約邏輯 (`Reliq.sol` line 181-185):
+根據合約邏輯 (`ReliQ.sol` line 181-185):
 
 ```solidity
 function canTrigger(uint256 vaultId) public view returns (bool) {
@@ -92,4 +92,4 @@ npm run test:04
 
 ## 備註
 
-這個測試展示了 Reliq 協議的核心安全特性：只要 vault owner 定期發送 heartbeat 證明活躍，vault 就不會被觸發。這確保了數字資產只在 owner 真正無法響應時才轉移給受益人。
+這個測試展示了 ReliQ 協議的核心安全特性：只要 vault owner 定期發送 heartbeat 證明活躍，vault 就不會被觸發。這確保了數字資產只在 owner 真正無法響應時才轉移給受益人。

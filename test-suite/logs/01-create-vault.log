@@ -1,5 +1,5 @@
 
-> relic-test-suite@1.0.0 test:01
+> ReliQ-test-suite@1.0.0 test:01
 > tsx 01-create-vault.ts
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

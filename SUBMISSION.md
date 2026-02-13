@@ -1,53 +1,46 @@
-# Reliq - BITE Hackathon Submission
+# Hackathon Submission: ReliQ (The Smart Will Protocol)
 
-**Privacy-first Digital Inheritance Vault on SKALE**
+> *"Morgan, I love you 3000. These assets are yours... but only when you graduate from MIT." — Tony Stark*
 
-> "Reliq ensures your digital legacy survives with absolute privacy and trustless execution, keeping your secrets safe until the moment they matter most."
+**ReliQ** is a privacy-first, automated inheritance protocol built on the **SKALE Network**. It ensures that digital legacies are handled with the same care, privacy, and complexity as real-world wishes.
 
-## Project Description
+## 🎬 The Narrative: Tony & Morgan Stark
+Traditional wills are public, static, and often require manual intervention. ReliQ brings Tony Stark’s vision to life through technology:
 
-Reliq is a decentralized digital inheritance protocol that allows users to create encrypted "dead man's switch" vaults. It leverages **BITE v2 (Blockchain Integrated Threshold Encryption)** to ensure that sensitive asset transfer instructions remain completely private until a specific condition (user inactivity/timeout) is met.
+1.  **The Provisioning (Tony)**: Tony locks 4.2 ETH in a vault. He doesn't want the world to know how much he's leaving or to whom. He sets a complex condition: *"Morgan must graduate from MIT."*
+2.  **The Encryption**: Using **BITE v2**, the transfer instruction itself is encrypted. Even the validators cannot see the destination address or the amount until the condition is met.
+3.  **The Claim (Morgan)**: Years later, Morgan uploads her MIT diploma. She pays a small **x402 fee** to trigger the AI Agent's verification process.
+4.  **The Settlement**: The AI Agent confirms the diploma's authenticity. BITE automatically decrypts and executes the transaction. Morgan receives her inheritance instantly and privately.
 
-Unlike traditional dead man's switches that rely on centralized servers or reveal intent on-chain immediately, Reliq ensures that the beneficiary, amount, and message are encrypted and only decryptable by the SKALE network itself when the timeout condition is proven valid.
+## 🛠️ Why BITE v2 + x402?
+*   **BITE v2 (Privacy as Commitment)**: We use the **Conditional Transaction (CTX)** pattern. The transfer is "locked" in an encrypted state at creation. It is unstoppable yet completely private until the AI Agent flips the switch.
+*   **x402 (Sustainable Oracle)**: Verifying complex real-world documents (like diplomas) requires AI compute. x402 allows the ReliQ Agent to charge a micro-fee for this service, preventing spam and ensuring the "Executor" is always online.
 
-## How it uses BITE v2
+---
 
-Reliq implements a "Conditional Transaction" workflow to solve the privacy problem in digital inheritance:
+## 🔍 On-Chain Evidence (BITE V2 Sandbox)
 
-1.  **Encryption (What stays private)**: The vault payload (containing the beneficiary address and a personal message) is encrypted client-side using the BITE SDK before it ever touches the chain.
-2.  **Condition (What unlocks it)**: A smart contract condition checks if `block.timestamp > lastHeartbeat + timeout`. The vault owner can reset this timer by sending a "heartbeat".
-3.  **Execution (How failure is handled)**: If the owner fails to send a heartbeat before the timeout, anyone can trigger the vault. The BITE nodes verify the condition on-chain, and if met, they collaborate to decrypt the payload and execute the asset transfer to the beneficiary.
+We have successfully simulated this entire narrative on the **SKALE BITE V2 Sandbox (Chain ID: 103698795)**.
 
-## Evidence of BITE v2 Usage
+### 1. Contract Information
+*   **ReliQ Contract**: `0x1F24BB1C838E169a383Eabc52302394c24FC1538`
+*   **Official USDC (Payment Token)**: `0xc4083B1E81ceb461Ccef3FDa8A9F24F0d764B6D8`
 
-We successfully deployed and tested the full lifecycle on **SKALE Base Sepolia Testnet**.
+### 2. Full Workflow Trace
+| Step | Action | Transaction Hash |
+| :--- | :--- | :--- |
+| **Step 1** | **Tony Stark Creates Vault** | `0x86cc8a248d62b7b6722807714f2237fb3053811c9d9148578bfa3d6db1576ba1` |
+| **Step 2** | **Simulate Inactivity** (Backdoor Expire) | `0x5d2c23d95dfb6a5bb34675b559a218c0b31caeca052a96c4be0228f860459afd` |
+| **Step 3** | **AI Agent Verifies & Unlocks** | `0xde4d93b16e1c44ba853ebd64fe3a69f82bb84d8447d1d081b051f664ad024864` |
+| **Step 4** | **BITE Auto-Settlement** (Success) | *Verified via BITE Network Callback* |
 
-**Contract Address:** `0x2277f5210daAaab3E26e565c96E5F9BeDb46662B`
+---
 
-## Links
- 
- *   **Demo Video**: [INSERT_VIDEO_LINK_HERE]
- *   **GitHub Repository**: [https://github.com/reliq-protocol/reliq](https://github.com/reliq-protocol/reliq)
- *   **Live Demo**: [https://reliq-protocol.github.io/reliq/](https://reliq-protocol.github.io/reliq/)
+## 📦 Technical Stack
+*   **Smart Contracts**: Solidity 0.8.27 (EVM: Istanbul)
+*   **Encryption**: SKALE BITE v2 SDK (CTX Mode)
+*   **AI Layer**: Anthropic Claude 3 Haiku via x402 Agent
+*   **Backend**: Hono + Ethers.js v6
 
-### 1. Complete Workflow Demo (Privacy + Execution)
-
-In this flow, we created a vault, effectively establishing an encrypted intent. We then simulated a timeout (using a demo-only backdoor) and triggered the execution.
-
-*   **Step A: Encrypted Intent (Vault Creation)**
-    *   **Description**: User deposits funds and provides encrypted instructions.
-    *   **Transaction Hash**: `0x5482f03cd361cd417ca646a576346f3133b2ae9ddadd5755c8606587aa5ac49d`
-    *   **Status**: The payload on-chain is purely encrypted bytes. The potential beneficiary is unknown to observers.
-
-*   **Step B: Conditional Execution (Trigger)**
-    *   **Description**: After the condition (`timeout`) was met, the vault was triggered. The SKALE network verified the condition, decrypted the payload, and executed the transfer.
-    *   **Transaction Hash**: `0x465bad558de0f73f2ea491d7e073c3a0e90d16f610396a245a111e54e5934587`
-    *   **Outcome**: 0.0001 ETH transferred to beneficiary `0x742d35Cc6634C0532925a3b844Bc454e4438f44e`.
-
-### 2. Gasless "Heartbeat" Feature (UX Trust Model)
-
-To encourage users to keep their vaults active without needing ETH for gas every time, we implemented EIP-712 signatures.
-
-*   **Description**: The vault owner signs a message off-chain. An agent submits this to the chain to prove liveness.
-*   **Transaction Hash**: `0x402faac209ecc6fa9d88796f18724117fad7ff4a8ab7ca1e4ad98b522deecd2a`
-*   **Significance**: Demonstrates a "Proof of Life" mechanism that is user-friendly and cost-effective.
+---
+Built with ❤️ for the SKALE x402 Hackathon.

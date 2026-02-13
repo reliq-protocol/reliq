@@ -1,6 +1,6 @@
-# Reliq Test Suite
+# ReliQ Test Suite
 
-Integration tests for the Reliq protocol using TypeScript, ethers.js, and BITE SDK.
+Integration tests for the ReliQ protocol using TypeScript, ethers.js, and BITE SDK.
 
 ## Structure
 

@@ -10,7 +10,7 @@
   "scripts": {
     "contracts:build": "cd packages/contracts && forge build",
     "contracts:test": "cd packages/contracts && forge test",
-    "contracts:deploy": "cd packages/contracts && forge script script/DeployReliq.s.sol --broadcast",
+    "contracts:deploy": "cd packages/contracts && forge script script/DeployReliQ.s.sol --broadcast",
     "backend:dev": "cd packages/backend && npm run dev",
     "backend:build": "cd packages/backend && npm run build",
     "frontend:dev": "cd packages/frontend && npm run dev",
@@ -29,6 +29,9 @@
     "privacy",
     "blockchain"
   ],
-  "author": "Reliq Team",
-  "license": "MIT"
+  "author": "ReliQ Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@skalenetwork/bite-solidity": "^0.0.1"
+  }
 }

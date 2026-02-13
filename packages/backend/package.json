@@ -1,7 +1,7 @@
 {
-    "name": "relic-backend",
+    "name": "ReliQ-backend",
     "version": "1.0.0",
-    "description": "Reliq backend server with SIWE authentication and heartbeat monitoring",
+    "description": "ReliQ backend server with SIWE authentication and heartbeat monitoring",
     "main": "src/index.js",
     "type": "module",
     "scripts": {

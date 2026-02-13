@@ -1,5 +1,5 @@
 
-> relic-test-suite@1.0.0 test:03
+> ReliQ-test-suite@1.0.0 test:03
 > tsx 03-heartbeat.ts 2026-02-13_17-18-41
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -15,7 +15,7 @@ interface NonceData {
 // Temporary nonce storage (use Redis in production)
 const nonces = new Map<string, NonceData>();
 
-const JWT_SECRET = process.env.JWT_SECRET || 'relic-secret-key-change-in-production';
+const JWT_SECRET = process.env.JWT_SECRET || 'ReliQ-secret-key-change-in-production';
 const JWT_EXPIRY = '7d';
 
 // Extend Express Request type

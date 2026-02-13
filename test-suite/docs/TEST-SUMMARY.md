@@ -1,4 +1,4 @@
-# Reliq 協議測試總結
+# ReliQ 協議測試總結
 
 ## 測試概覽
 
@@ -194,8 +194,8 @@ test-suite/
 
 ## Explorer 連結
 
-- **Test 01**: https://base-sepolia-testnet-explorer.skalenodes.com/tx/0x6868b6f12ca6603a848f5ec4a9f5ef230b5fa5c7555610fc878721b86c82b528
-- **Test 03**: https://base-sepolia-testnet-explorer.skalenodes.com/tx/0x77c9fb080b326173af25a94458f6afeb35b194a9450ac3e059b779dfe7aac13c
+- **Test 01**: https://base-sepolia-testnet-explorer.skalenodes.com:10032/tx/0x6868b6f12ca6603a848f5ec4a9f5ef230b5fa5c7555610fc878721b86c82b528
+- **Test 03**: https://base-sepolia-testnet-explorer.skalenodes.com:10032/tx/0x77c9fb080b326173af25a94458f6afeb35b194a9450ac3e059b779dfe7aac13c
 
 ---
 
@@ -203,7 +203,7 @@ test-suite/
 
 ✅ **所有核心功能測試通過**
 
-Reliq 協議的核心機制已經全部驗證：
+ReliQ 協議的核心機制已經全部驗證：
 1. BITE 加密集成正常
 2. Vault 創建和管理功能完善
 3. EIP-712 heartbeat 機制運作正確

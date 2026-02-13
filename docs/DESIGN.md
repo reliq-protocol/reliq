@@ -66,15 +66,15 @@ Layer 2: ECIES Permanent Encryption
 ```mermaid
 graph TB
     subgraph "Phase 0: Setup (Optional)"
-        A1[Moose: Export public key] --> A2[Share with Tony or Platform]
+        A1[Morgan: Export public key] --> A2[Share with Tony or Platform]
         A2 --> A3{Registration method}
         A3 -->|Option A| A4[Direct to Tony]
         A3 -->|Option B| A5[Platform database]
     end
     
     subgraph "Phase 1: Vault Creation"
-        B1[Tony visits StealthVault] --> B2[Input Moose's address + amount + message]
-        B2 --> B3{Get Moose's public key}
+        B1[Tony visits StealthVault] --> B2[Input Morgan's address + amount + message]
+        B2 --> B3{Get Morgan's public key}
         B3 -->|From platform| B4[Query API]
         B3 -->|Manual| B5[Tony pastes key]
         B4 --> B6[ECIES encrypt message]
@@ -100,16 +100,16 @@ graph TB
         D2 --> D3["Contract: BITE.submitCTX()"]
         D3 --> D4[Next Block: Auto decrypt]
         D4 --> D5["Auto callback: onDecrypt()"]
-        D5 --> D6[Execute transfer: 3 ETH → Moose]
+        D5 --> D6[Execute transfer: 3 ETH → Morgan]
     end
     
     subgraph "Phase 4: Message Reveal"
-        D6 --> E1[Moose receives notification]
+        D6 --> E1[Morgan receives notification]
         E1 --> E2[Opens StealthVault]
         E2 --> E3[Clicks frosted glass]
         E3 --> E4[MetaMask: ECIES decrypt]
         E4 --> E5[Message revealed]
-        E5 --> E6["Moose, I love you 3000. - Dad"]
+        E5 --> E6["Morgan, I love you 3000. - Dad"]
     end
     
     style A5 fill:#9cf
@@ -124,11 +124,11 @@ graph TB
 
 StealthVault operates in 4 phases (registration is optional and off-chain):
 
-1. **Setup (Optional)**: Moose exports encryption public key, shares directly with Tony or registers on platform database
-2. **Vault Creation**: Tony creates vault with ECIES+BITE encrypted data, obtains Moose's public key from platform API or manual input
+1. **Setup (Optional)**: Morgan exports encryption public key, shares directly with Tony or registers on platform database
+2. **Vault Creation**: Tony creates vault with ECIES+BITE encrypted data, obtains Morgan's public key from platform API or manual input
 3. **Heartbeat**: Daily EIP-712 signatures (gasless) to prove Tony is alive
 4. **CTX Execution**: When timeout occurs, Agent triggers CTX → SKALE automatically decrypts and executes
-5. **Reveal**: Moose decrypts message with MetaMask private key
+5. **Reveal**: Morgan decrypts message with MetaMask private key
 
 **Key Innovation**: No on-chain public key registration required - better privacy, zero gas fees for beneficiaries.
 
@@ -138,17 +138,17 @@ StealthVault operates in 4 phases (registration is optional and off-chain):
 
 ```mermaid
 sequenceDiagram
-    participant Moose
+    participant Morgan
     participant Frontend
     participant MetaMask
     participant Backend
     
-    Note over Moose: Option A: Platform Registration (Recommended)
+    Note over Morgan: Option A: Platform Registration (Recommended)
     
-    Moose->>Frontend: Visit StealthVault
-    Moose->>Frontend: Click "Connect Wallet"
+    Morgan->>Frontend: Visit StealthVault
+    Morgan->>Frontend: Click "Connect Wallet"
     Frontend->>MetaMask: eth_requestAccounts
-    MetaMask-->>Frontend: 0xMoose...
+    MetaMask-->>Frontend: 0xMorgan...
     
     Frontend->>Backend: GET /api/nonce
     Backend-->>Frontend: nonce: "abc123..."
@@ -156,7 +156,7 @@ sequenceDiagram
     Frontend->>Frontend: Generate SIWE message
     Frontend->>MetaMask: Sign SIWE message
     Note over MetaMask: "Sign in to StealthVault<br/>to prove wallet ownership"
-    Moose->>MetaMask: ✅ Sign
+    Morgan->>MetaMask: ✅ Sign
     MetaMask-->>Frontend: signature
     
     Frontend->>Backend: POST /api/auth/login<br/>{message, signature}
@@ -167,30 +167,30 @@ sequenceDiagram
     
     alt No public key registered
         Frontend->>MetaMask: eth_getEncryptionPublicKey
-        MetaMask->>Moose: "Export encryption public key?"
-        Moose->>MetaMask: ✅ Approve
+        MetaMask->>Morgan: "Export encryption public key?"
+        Morgan->>MetaMask: ✅ Approve
         MetaMask-->>Frontend: publicKey
         
         Frontend->>Backend: POST /api/register-key<br/>{publicKey, JWT}
         Backend->>Backend: Verify JWT + save
         Backend-->>Frontend: ✅ Registered
-        Frontend->>Moose: ✅ Registration complete!
+        Frontend->>Morgan: ✅ Registration complete!
     else Already registered
-        Frontend->>Moose: ✅ Welcome back!
+        Frontend->>Morgan: ✅ Welcome back!
     end
     
-    Note over Moose: Option B: Direct Exchange (Most Private)
-    Moose->>MetaMask: eth_getEncryptionPublicKey
-    MetaMask-->>Moose: publicKey
-    Moose->>Moose: Share with Tony directly<br/>(Email/Message)
+    Note over Morgan: Option B: Direct Exchange (Most Private)
+    Morgan->>MetaMask: eth_getEncryptionPublicKey
+    MetaMask-->>Morgan: publicKey
+    Morgan->>Morgan: Share with Tony directly<br/>(Email/Message)
 ```
 
 **Option A: Platform Registration with SIWE (Recommended)**
 
-1. **Connect Wallet**: Moose clicks "Connect Wallet" button
+1. **Connect Wallet**: Morgan clicks "Connect Wallet" button
 2. **Sign-In with Ethereum (SIWE)**:
    - Frontend generates standardized login message
-   - Moose signs message to prove wallet ownership
+   - Morgan signs message to prove wallet ownership
    - No gas fees required (just a signature)
 3. **Backend Verification**:
    - Verifies SIWE signature
@@ -200,11 +200,11 @@ sequenceDiagram
    - Submitted to backend with JWT authentication
 5. **Stored Off-Chain**:
    - Public key stored in database
-   - Linked to Moose's verified address
+   - Linked to Morgan's verified address
 
 **Option B: Direct Exchange (Maximum Privacy)**
 
-1. Moose exports public key from MetaMask locally
+1. Morgan exports public key from MetaMask locally
 2. Shares key directly with Tony (email, message, in-person)
 3. Tony manually pastes key when creating vault
 4. Zero platform dependency
@@ -217,7 +217,7 @@ sequenceDiagram
 - ✅ Can verify public key belongs to address
 
 **Why Off-Chain Storage:**
-- ✅ Zero gas fees for Moose
+- ✅ Zero gas fees for Morgan
 - ✅ No on-chain event revealing beneficiary status
 - ✅ Better privacy (no blockchain traces)
 - ✅ Simpler smart contract
@@ -233,23 +233,23 @@ sequenceDiagram
     participant Frontend
     participant Backend
     participant Notification
-    participant Moose
+    participant Morgan
     participant BITE_SDK
     participant Contract
     participant MetaMask
     
     Tony->>Frontend: Visit /create
-    Tony->>Frontend: Input Moose's address
+    Tony->>Frontend: Input Morgan's address
     
-    Frontend->>Backend: GET /api/publickey/0xMoose...
+    Frontend->>Backend: GET /api/publickey/0xMorgan...
     
-    alt Moose已註冊公鑰
+    alt Morgan已註冊公鑰
         Backend-->>Frontend: {publicKey: "0x04abc..."}
-        Frontend->>Tony: ✅ Moose已註冊，可以繼續
+        Frontend->>Tony: ✅ Morgan已註冊，可以繼續
         
         Tony->>Frontend: Enter 3 ETH + message
         Frontend->>Frontend: ECIES encrypt message
-        Note over Frontend: 用 Moose 的公鑰加密
+        Note over Frontend: 用 Morgan 的公鑰加密
         
         Frontend->>Frontend: Build payload JSON
         Frontend->>BITE_SDK: encryptMessage(payload)
@@ -260,28 +260,28 @@ sequenceDiagram
         Contract-->>Frontend: VaultCreated(vaultId: 1)
         Frontend->>Tony: ✅ Vault created!
         
-    else Moose未註冊
+    else Morgan未註冊
         Backend-->>Frontend: 404 Not Found
-        Frontend->>Tony: ⚠️ Moose還沒註冊公鑰
+        Frontend->>Tony: ⚠️ Morgan還沒註冊公鑰
         
         Tony->>Frontend: 選擇操作
         
         alt Tony選擇：發送邀請
-            Frontend->>Backend: POST /api/invite<br/>{beneficiary: 0xMoose...}
+            Frontend->>Backend: POST /api/invite<br/>{beneficiary: 0xMorgan...}
             Backend->>Notification: 發送邀請郵件/訊息
-            Notification->>Moose: "Tony想給你創建 Vault<br/>請先註冊公鑰"<br/>[註冊鏈接]
+            Notification->>Morgan: "Tony想給你創建 Vault<br/>請先註冊公鑰"<br/>[註冊鏈接]
             Backend-->>Frontend: ✅ 邀請已發送
-            Frontend->>Tony: ✅ 已通知 Moose<br/>等他註冊後再創建
+            Frontend->>Tony: ✅ 已通知 Morgan<br/>等他註冊後再創建
             
-            Note over Moose: Moose收到邀請
-            Moose->>Frontend: 點擊邀請鏈接
-            Note over Moose,Frontend: 執行 3.1 的 SIWE 註冊流程
+            Note over Morgan: Morgan收到邀請
+            Morgan->>Frontend: 點擊邀請鏈接
+            Note over Morgan,Frontend: 執行 3.1 的 SIWE 註冊流程
             
-            Frontend->>Backend: 通知 Tony: Moose已註冊
-            Backend->>Tony: 🔔 Moose已完成註冊！
+            Frontend->>Backend: 通知 Tony: Morgan已註冊
+            Backend->>Tony: 🔔 Morgan已完成註冊！
             
         else Tony選擇：手動輸入公鑰
-            Tony->>Frontend: 貼上 Moose 的公鑰
+            Tony->>Frontend: 貼上 Morgan 的公鑰
             Frontend->>Tony: ⚠️ 提示：請確認公鑰正確
             Note over Tony,Frontend: 繼續創建流程（如上）
         end
@@ -290,36 +290,36 @@ sequenceDiagram
 
 **What happens:**
 
-**場景 A：Moose 已註冊（順利流程）**
+**場景 A：Morgan 已註冊（順利流程）**
 
-1. Tony 輸入 Moose 的地址
+1. Tony 輸入 Morgan 的地址
 2. Frontend 查詢 backend API
 3. ✅ 找到公鑰 → 自動填充
 4. Tony 輸入金額和訊息
-5. **ECIES 加密**：用 Moose 的公鑰加密訊息
+5. **ECIES 加密**：用 Morgan 的公鑰加密訊息
 6. **BITE 加密**：加密整個 payload
 7. Tony 批准交易，發送 3 ETH
 8. 合約存儲加密數據
 9. Vault 創建成功
 
-**場景 B：Moose 未註冊（需要邀請）**
+**場景 B：Morgan 未註冊（需要邀請）**
 
-1. Tony 輸入 Moose 的地址
+1. Tony 輸入 Morgan 的地址
 2. Frontend 查詢 backend → ❌ 404 Not Found
-3. 顯示提示：「Moose 還沒註冊公鑰」
+3. 顯示提示：「Morgan 還沒註冊公鑰」
 4. Tony 有兩個選擇：
 
    **選項 1：發送邀請（推薦）**
    - Tony 點擊「發送邀請」
-   - Backend 發送郵件/訊息給 Moose
-   - Moose 收到邀請鏈接
-   - Moose 點擊鏈接 → 執行 SIWE 註冊流程
+   - Backend 發送郵件/訊息給 Morgan
+   - Morgan 收到邀請鏈接
+   - Morgan 點擊鏈接 → 執行 SIWE 註冊流程
    - 註冊完成後，Tony 收到通知
    - Tony 可以繼續創建 Vault
 
    **選項 2：手動輸入公鑰（備選）**
-   - Tony 聯繫 Moose 索取公鑰
-   - Moose 自行導出公鑰並分享
+   - Tony 聯繫 Morgan 索取公鑰
+   - Morgan 自行導出公鑰並分享
    - Tony 手動貼上公鑰
    - 繼續創建流程
 
@@ -383,7 +383,7 @@ sequenceDiagram
     participant Contract
     participant BITE_CTX
     participant SKALE_Consensus
-    participant Moose
+    participant Morgan
     
     Note over Tony: Day 3: No response<br/>(timeout = 3 days)
     
@@ -413,11 +413,11 @@ sequenceDiagram
     Note over Contract: Automatic callback!
     Contract->>Contract: Parse JSON:<br/>{beneficiary, amount, encryptedMessage}
     Contract->>Contract: vault.executed = true
-    Contract->>Moose: Transfer 3 ETH
+    Contract->>Morgan: Transfer 3 ETH
     Contract-->>SKALE_Consensus: VaultExecuted event
     
     Agent->>Agent: Store encryptedMessage in DB
-    Agent->>Moose: Notify: "You received 3 ETH"
+    Agent->>Morgan: Notify: "You received 3 ETH"
 ```
 
 **CTX execution flow remains unchanged from previous design.**
@@ -428,37 +428,37 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant Moose
+    participant Morgan
     participant Frontend
     participant Agent_API
     participant MetaMask
     
-    Moose->>Moose: Wallet notification:<br/>"Received 3 ETH"
-    Moose->>Frontend: Visit StealthVault
-    Moose->>Frontend: Connect MetaMask
+    Morgan->>Morgan: Wallet notification:<br/>"Received 3 ETH"
+    Morgan->>Frontend: Visit StealthVault
+    Morgan->>Frontend: Connect MetaMask
     Frontend->>MetaMask: Request account
-    MetaMask-->>Frontend: 0xMoose...
+    MetaMask-->>Frontend: 0xMorgan...
     
-    Frontend->>Agent_API: GET /vault/message?beneficiary=0xMoose
+    Frontend->>Agent_API: GET /vault/message?beneficiary=0xMorgan
     Agent_API->>Agent_API: Query DB: executed vaults
     Agent_API-->>Frontend: {vaultId, sender, amount,<br/>encryptedMessage}
     
-    Frontend->>Moose: Display vault card with frosted glass
+    Frontend->>Morgan: Display vault card with frosted glass
     
-    Moose->>Frontend: Click frosted glass
+    Morgan->>Frontend: Click frosted glass
     Frontend->>Frontend: Begin reveal animation
-    Frontend->>MetaMask: eth_decrypt(encryptedMessage, 0xMoose)
-    MetaMask->>Moose: "Decrypt message?"
-    Moose->>MetaMask: ✅ Approve
+    Frontend->>MetaMask: eth_decrypt(encryptedMessage, 0xMorgan)
+    MetaMask->>Morgan: "Decrypt message?"
+    Morgan->>MetaMask: ✅ Approve
     
     MetaMask->>MetaMask: Decrypt with private key
-    MetaMask-->>Frontend: "Moose, I love you 3000. - Dad"
+    MetaMask-->>Frontend: "Morgan, I love you 3000. - Dad"
     
     Frontend->>Frontend: Frosted glass dissolve (1.5s)
     Frontend->>Frontend: Typewriter effect
-    Frontend->>Moose: Display message
+    Frontend->>Morgan: Display message
     
-    Note over Moose: 😢 Emotional moment
+    Note over Morgan: 😢 Emotional moment
 ```
 
 **Message reveal flow remains unchanged from previous design.**
@@ -960,18 +960,18 @@ await fetch('/api/register-key', {
 
 ## 10. Demo Script
 
-**Scene: Tony Stark and Moose**
+**Scene: Tony Stark and Morgan**
 
 **Act 1: Setup (Optional, 15s)**
-1. Moose visits StealthVault (optional)
+1. Morgan visits StealthVault (optional)
 2. Exports public key from MetaMask
 3. Registers on platform (off-chain, instant, free)
 
 **Act 2: Creation (40s)**
 4. Tony opens vault creation page
-5. Inputs Moose's address
+5. Inputs Morgan's address
 6. Platform auto-fills public key (or Tony pastes manually)
-7. Enters 3 ETH and message: "Moose, I love you 3000..."
+7. Enters 3 ETH and message: "Morgan, I love you 3000..."
 8. UI shows dual encryption in progress
 9. MetaMask transaction approved
 10. Vault #1 created successfully

@@ -1,10 +1,10 @@
-# Reliq Test Suite
+# ReliQ Test Suite
 
-TypeScript-based test suite for the Reliq smart contract with BITE protocol integration.
+TypeScript-based test suite for the ReliQ smart contract with BITE protocol integration.
 
 ## Overview
 
-This test suite demonstrates the complete Reliq protocol workflow:
+This test suite demonstrates the complete ReliQ protocol workflow:
 
 1. **Step 1**: Create vault with BITE-encrypted payload (0.0001 ETH)
 2. **Step 2**: Query vault details from contract
@@ -109,5 +109,5 @@ Created vault ID: 0
 
 - **Network**: SKALE Base Sepolia
 - **Contract**: `0xEaBEA691f021691d2da93dBC00826B6a7D060cF6`
-- **RPC URL**: `https://base-sepolia-testnet.skalenodes.com/v1/jubilant-horrible-ancha`
-- **Explorer**: https://base-sepolia-testnet-explorer.skalenodes.com/
+- **RPC URL**: `https://base-sepolia-testnet.skalenodes.com/v1/bite-v2-sandbox`
+- **Explorer**: https://base-sepolia-testnet-explorer.skalenodes.com:10032/

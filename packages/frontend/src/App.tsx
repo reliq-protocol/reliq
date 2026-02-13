@@ -1,51 +1,47 @@
 import { useState, useEffect } from 'react';
+import { WagmiProvider, useAccount } from 'wagmi';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { config } from './wagmi';
 import { Navigation } from './components/Navigation';
 import { ProvisionVault } from './views/ProvisionVault';
 import { PulseMonitor } from './views/PulseMonitor';
 import { DecryptingVault } from './views/DecryptingVault';
 import { ConnectWallet } from './views/ConnectWallet';
-import { AppView, UserRole } from './types';
+import { AppView } from './types';
 
-function App() {
-  const [currentUser, setCurrentUser] = useState<UserRole | null>(null);
+const queryClient = new QueryClient();
+
+function AppContent() {
   const [currentView, setCurrentView] = useState<AppView>(AppView.PULSE);
+  const { isConnected } = useAccount();
 
-  // Initial Logic: If logged in as Tony, show Pulse/Provision. If Morgan, show Decrypt.
+  // Reset view when wallet disconnects
   useEffect(() => {
-    if (currentUser === 'CREATOR') {
+    if (!isConnected) {
       setCurrentView(AppView.PULSE);
-    } else if (currentUser === 'BENEFICIARY') {
-      setCurrentView(AppView.DECRYPTING);
     }
-  }, [currentUser]);
-
-  // Handle Switching Logic
-  const handleSwitchUser = () => {
-    setCurrentUser(prev => prev === 'CREATOR' ? 'BENEFICIARY' : 'CREATOR');
-  };
+  }, [isConnected]);
 
   const handleDisconnect = () => {
-    setCurrentUser(null);
+    setCurrentView(AppView.PULSE);
   };
 
   const renderView = () => {
-    if (!currentUser) return <ConnectWallet onConnect={() => setCurrentUser('CREATOR')} />;
+    // Show connect wallet if not connected
+    if (!isConnected) {
+      return <ConnectWallet />;
+    }
 
+    // User is connected, show the app
     switch (currentView) {
       case AppView.PROVISION:
-        return <ProvisionVault currentUser={currentUser} onSwitchUser={handleSwitchUser} onDisconnect={handleDisconnect} />;
+        return <ProvisionVault onDisconnect={handleDisconnect} />;
       case AppView.PULSE:
-        return <PulseMonitor currentUser={currentUser} onSwitchUser={handleSwitchUser} onDisconnect={handleDisconnect} />;
+        return <PulseMonitor onDisconnect={handleDisconnect} onViewChange={setCurrentView} />;
       case AppView.DECRYPTING:
-        // Decrypting view usually doesn't need nav back for Morgan context in this specific flow,
-        // but adding switch capability if needed via a back button or if we added a header. 
-        // For now, DecryptingVault is immersive. To switch back from here, we might need a hidden trigger 
-        // or just rely on the flow completing. 
-        // However, based on the prompt, "Only Morgan sees pending inheritance". 
-        // Let's assume this view is the end state for her until interaction completes.
-        return <DecryptingVault />;
+        return <DecryptingVault onDisconnect={handleDisconnect} />;
       default:
-        return <ProvisionVault currentUser={currentUser} onSwitchUser={handleSwitchUser} onDisconnect={handleDisconnect} />;
+        return <ProvisionVault onDisconnect={handleDisconnect} />;
     }
   };
 
@@ -53,15 +49,20 @@ function App() {
     <div className="bg-background-dark min-h-screen">
       {renderView()}
 
-      {/* Navigation is only visible if User is logged in AND User is the Creator (Tony) */}
-      {/* Morgan only sees the specific decrypt screen, so no bottom nav for her context based on the "Logic: Only Morgan sees..." prompt interpretation. */}
-      {/* OR: If we want Morgan to have nav, we can add it. But usually beneficiaries just get a link. */}
-      {/* Let's keep Nav for Tony to switch between Pulse and Provision. */}
-
-      {currentUser === 'CREATOR' && (
+      {isConnected && (
         <Navigation currentView={currentView} onViewChange={setCurrentView} />
       )}
     </div>
+  );
+}
+
+function App() {
+  return (
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <AppContent />
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
 

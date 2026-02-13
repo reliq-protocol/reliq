@@ -1,9 +1,9 @@
 
-> relic-test-suite@1.0.0 test:05
+> ReliQ-test-suite@1.0.0 test:05
 > tsx 05-complete-workflow-demo.ts
 
 ═══════════════════════════════════════════════════
-   Relic Complete Workflow Demo
+   ReliQ Complete Workflow Demo
 ═══════════════════════════════════════════════════
 
 📁 Test session: /Users/yulun/Documents/work/sol/iloveu3kyears/test-suite/test-results/session_2026-02-13_17-26-15

@@ -1,0 +1,24 @@
+==================================
+Step 2: Check Vault Details
+Timestamp: 2026-02-13T22:24:42.438Z
+==================================
+
+
+
+
+
+--- Input ---
+{
+  "function": "getVault(uint256)",
+  "vaultId": "0"
+}
+
+--- Output ---
+{
+  "owner": "0x9554CEb8aEAA4bDEc5b088ec980254d6a2Da3c72",
+  "amount": "100000000000000",
+  "amountETH": "0.0001",
+  "isUnlocked": true,
+  "executed": true,
+  "canTrigger": true
+}

@@ -15,7 +15,7 @@ import { TestLogger, formatTimestamp, generateSessionId, loadEnv } from './utils
 
 const RPC_URL = process.env.RPC_URL!;
 const PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY!;
-const CONTRACT_ADDRESS = '0x2277f5210daAaab3E26e565c96E5F9BeDb46662B';
+const CONTRACT_ADDRESS = '0x1F24BB1C838E169a383Eabc52302394c24FC1538';
 
 // Test parameters (SMALL amount!)
 const TEST_AMOUNT = ethers.parseEther('0.0001'); // 0.0001 ETH
@@ -23,7 +23,7 @@ const TIMEOUT = 300; // 5 minutes for testing
 
 // Contract ABI
 const VAULT_ABI = [
-    'function createVault(bytes encryptedPayload, uint256 timeout) payable returns (uint256)',
+    'function createVault(bytes encryptedTx, bytes encryptedCondition) payable returns (uint256)',
     'function vaultCount() view returns (uint256)',
 ];
 
@@ -40,7 +40,7 @@ async function main() {
     const provider = new ethers.JsonRpcProvider(RPC_URL);
     const wallet = new ethers.Wallet(PRIVATE_KEY, provider);
     const contract = new ethers.Contract(CONTRACT_ADDRESS, VAULT_ABI, wallet);
-    const bite = new BITE(RPC_URL);
+    const bite = new BITE("https://base-sepolia-testnet.skalenodes.com/v1/bite-v2-sandbox");
 
     console.log(`Deployer: ${wallet.address}`);
     console.log(`Contract: ${CONTRACT_ADDRESS}`);
@@ -78,11 +78,11 @@ async function main() {
 
     // Prepare input log
     const input = {
-        function: 'createVault(bytes,uint256)',
+        function: 'createVault(bytes,bytes)',
         parameters: {
-            encryptedPayload: encryptedPayload,
-            timeout: TIMEOUT,
-            value: TEST_AMOUNT.toString(),
+            encryptedTx: encryptedPayload,
+            encryptedCondition: encryptedPayload,
+            value: (TEST_AMOUNT + ethers.parseEther('0.06')).toString(),
         },
         rawPayload: payload,
         payloadHex: payloadHex,
@@ -90,8 +90,9 @@ async function main() {
 
     // Submit transaction
     console.log('📤 Submitting transaction...');
-    const tx = await contract.createVault(encryptedPayload, TIMEOUT, {
-        value: TEST_AMOUNT,
+    const tx = await contract.createVault(encryptedPayload, encryptedPayload, {
+        value: TEST_AMOUNT + ethers.parseEther('0.06'),
+        gasLimit: 1000000
     });
 
     console.log(`Transaction hash: ${tx.hash}`);
@@ -130,7 +131,7 @@ async function main() {
         input,
         output,
         transactionHash: tx.hash,
-        explorerUrl: `https://base-sepolia-testnet-explorer.skalenodes.com/tx/${tx.hash}`,
+        explorerUrl: `https://base-sepolia-testnet-explorer.skalenodes.com:10032/tx/${tx.hash}`,
         gasUsed: receipt?.gasUsed.toString(),
         status: receipt?.status === 1 ? 'success' : 'failed',
     });

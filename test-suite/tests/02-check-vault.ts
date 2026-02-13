@@ -1,7 +1,10 @@
 /**
  * Step 2: Check Vault Details
  * 
- * Query vault information from the contract
+ * This script:
+ * 1. Reads the vault ID from the previous step
+ * 2. Queries the contract for vault details
+ * 3. Logs the status
  */
 
 import { ethers } from 'ethers';
@@ -11,11 +14,11 @@ import { TestLogger, formatTimestamp, generateSessionId, loadEnv } from './utils
 
 
 const RPC_URL = process.env.RPC_URL!;
-const CONTRACT_ADDRESS = '0x2277f5210daAaab3E26e565c96E5F9BeDb46662B';
+const CONTRACT_ADDRESS = '0x1F24BB1C838E169a383Eabc52302394c24FC1538';
 
 const VAULT_ABI = [
-    'function getVault(uint256) view returns (address owner, uint256 lastResponse, uint256 timeout, uint256 amount, bool executed)',
-    'function canTrigger(uint256) view returns (bool)',
+    'function getVault(uint256) view returns (tuple(address owner, bytes encryptedCondition, uint256 amount, bool isUnlocked, bool executed))',
+    'function isConditionMet(uint256) view returns (bool)',
 ];
 
 async function main() {
@@ -42,19 +45,16 @@ async function main() {
 
     // Query vault
     console.log('🔍 Querying vault details...');
-    const vaultData = await contract.getVault(vaultId);
-    const canTrigger = await contract.canTrigger(vaultId);
-
-    const [owner, lastResponse, timeout, amount, executed] = vaultData;
+    const vault = await contract.getVault(vaultId);
+    const canTrigger = await contract.isConditionMet(vaultId);
 
     console.log('');
     console.log('Vault Details:');
-    console.log(`  Owner: ${owner}`);
-    console.log(`  Last Response: ${new Date(Number(lastResponse) * 1000).toISOString()}`);
-    console.log(`  Timeout: ${timeout} seconds`);
-    console.log(`  Amount: ${ethers.formatEther(amount)} ETH`);
-    console.log(`  Executed: ${executed}`);
-    console.log(`  Can Trigger: ${canTrigger}`);
+    console.log(`  Owner: ${vault.owner}`);
+    console.log(`  Amount: ${ethers.formatEther(vault.amount)} ETH`);
+    console.log(`  Unlocked: ${vault.isUnlocked}`);
+    console.log(`  Executed: ${vault.executed}`);
+    console.log(`  Can Trigger (BITE): ${canTrigger}`);
     console.log('');
 
     // Prepare logs
@@ -64,14 +64,12 @@ async function main() {
     };
 
     const output = {
-        owner: owner,
-        lastResponse: lastResponse.toString(),
-        lastResponseDate: new Date(Number(lastResponse) * 1000).toISOString(),
-        timeout: timeout.toString(),
-        amount: amount.toString(),
-        amountETH: ethers.formatEther(amount),
-        executed: executed,
-        canTrigger: canTrigger,
+        owner: vault.owner,
+        amount: vault.amount.toString(),
+        amountETH: ethers.formatEther(vault.amount),
+        isUnlocked: vault.isUnlocked,
+        executed: vault.executed,
+        canTrigger: canTrigger
     };
 
     logger.logTransaction({

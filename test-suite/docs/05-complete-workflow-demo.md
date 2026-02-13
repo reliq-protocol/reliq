@@ -2,7 +2,7 @@
 
 ## 操作描述
 
-展示完整的 Reliq 協議工作流程，使用 **DEMO 後門函數** `forceExpireTimeout()` 立即讓 vault 可以被觸發，無需等待實際的 timeout 時間。
+展示完整的 ReliQ 協議工作流程，使用 **DEMO 後門函數** `forceExpireTimeout()` 立即讓 vault 可以被觸發，無需等待實際的 timeout 時間。
 
 ## 執行時間
 
@@ -32,7 +32,7 @@
 - Gas Used: 463,172
 - Status: ✅ Success
 
-**Explorer**: https://base-sepolia-testnet-explorer.skalenodes.com/tx/0xfe54d88ac0c5ccdb893e58bf7f0e39fa1f7d7f7c1f1a0a93e62f8d5c3a0be8f8
+**Explorer**: https://base-sepolia-testnet-explorer.skalenodes.com:10032/tx/0xfe54d88ac0c5ccdb893e58bf7f0e39fa1f7d7f7c1f1a0a93e62f8d5c3a0be8f8
 
 ---
 
@@ -54,7 +54,7 @@
 - `canTrigger()` 立即返回 `true`
 - 無需等待 300 秒！
 
-**Explorer**: https://base-sepolia-testnet-explorer.skalenodes.com/tx/0xdd3274e028b06e559df11f1a69642037b6fe906f1c41ff7e95f292565156f7bf
+**Explorer**: https://base-sepolia-testnet-explorer.skalenodes.com:10032/tx/0xdd3274e028b06e559df11f1a69642037b6fe906f1c41ff7e95f292565156f7bf
 
 ---
 
@@ -93,7 +93,7 @@
 - 0.0001 ETH 成功轉賬到受益人地址
 - Vault 標記為 `executed = true`
 
-**Explorer**: https://base-sepolia-testnet-explorer.skalenodes.com/tx/0x0fd9c6a3d40b50df222728e31a3b260bb63995aeed77f7173f444e12675004e0
+**Explorer**: https://base-sepolia-testnet-explorer.skalenodes.com:10032/tx/0x0fd9c6a3d40b50df222728e31a3b260bb63995aeed77f7173f444e12675004e0
 
 ---
 

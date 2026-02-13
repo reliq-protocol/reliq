@@ -1,7 +1,7 @@
 /**
- * Step 3: Send Heartbeat Response
+ * Step 3: Unlock Vault (AI Agent Action)
  * 
- * Generate EIP-712 signature and send heartbeat response via agent
+ * Simulated AI Agent action to unlock the vault after verifying proof
  */
 
 import { ethers } from 'ethers';
@@ -11,24 +11,23 @@ import { TestLogger, formatTimestamp, loadEnv } from './utils'; loadEnv();
 
 
 const RPC_URL = process.env.RPC_URL!;
-const PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY!;
-const CONTRACT_ADDRESS = '0x2277f5210daAaab3E26e565c96E5F9BeDb46662B';
+const PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY!; // Deployer is also the initial Agent
+const CONTRACT_ADDRESS = '0x1F24BB1C838E169a383Eabc52302394c24FC1538';
 
 const VAULT_ABI = [
-    'function respondViaAgent(uint256 vaultId, uint256 timestamp, uint256 nonce, bytes signature)',
-    'function DOMAIN_SEPARATOR() view returns (bytes32)',
-    'function HEARTBEAT_TYPEHASH() view returns (bytes32)',
+    'function unlockVault(uint256 vaultId) external',
+    'function getVault(uint256 vaultId) view returns (tuple(address owner, bytes encryptedCondition, uint256 amount, bool isUnlocked, bool executed))',
 ];
 
 async function main() {
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.log('Step 3: Send Heartbeat Response');
+    console.log('Step 3: Unlock Vault (AI Agent)');
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log('');
 
     const sessionId = process.argv[2];
     if (!sessionId) {
-        console.error('Error: Session ID required. Run step1 first.');
+        console.error('Error: Session ID required.');
         process.exit(1);
     }
 
@@ -46,103 +45,39 @@ async function main() {
     const wallet = new ethers.Wallet(PRIVATE_KEY, provider);
     const contract = new ethers.Contract(CONTRACT_ADDRESS, VAULT_ABI, wallet);
 
-    // Generate heartbeat parameters
-    const timestamp = Math.floor(Date.now() / 1000);
-    const nonce = Math.floor(Math.random() * 1000000);
+    // Check status before
+    const vaultBefore = await contract.getVault(vaultId);
+    console.log(`Current status: Unlocked=${vaultBefore.isUnlocked}, Executed=${vaultBefore.executed}`);
 
-    console.log(`Timestamp: ${timestamp}`);
-    console.log(`Nonce: ${nonce}`);
-    console.log('');
+    if (vaultBefore.isUnlocked) {
+        console.log('Vault is already unlocked. Skipping...');
+    } else {
+        console.log('🔓 Unlocking vault...');
+        const tx = await contract.unlockVault(vaultId);
+        console.log(`Transaction sent: ${tx.hash}`);
+        await tx.wait();
+        console.log('✅ Vault unlocked successfully!');
+    }
 
-    // Get EIP-712 parameters
-    const domainSeparator = await contract.DOMAIN_SEPARATOR();
-    const heartbeatTypehash = await contract.HEARTBEAT_TYPEHASH();
-
-    console.log(`Domain Separator: ${domainSeparator}`);
-    console.log(`Heartbeat TypeHash: ${heartbeatTypehash}`);
-    console.log('');
-
-    // Create struct hash
-    const structHash = ethers.keccak256(
-        ethers.AbiCoder.defaultAbiCoder().encode(
-            ['bytes32', 'uint256', 'uint256', 'uint256'],
-            [heartbeatTypehash, vaultId, timestamp, nonce]
-        )
-    );
-
-    // Create digest
-    const digest = ethers.keccak256(
-        ethers.solidityPacked(
-            ['string', 'bytes32', 'bytes32'],
-            ['\x19\x01', domainSeparator, structHash]
-        )
-    );
-
-    console.log(`Struct Hash: ${structHash}`);
-    console.log(`Digest: ${digest}`);
-    console.log('');
-
-    // Get network/chainId
-    const network = await provider.getNetwork();
-    const chainId = network.chainId;
-    console.log(`Chain ID: ${chainId}`);
-
-    // Sign digest directly to ensure it matches
-    const signatureObject = wallet.signingKey.sign(digest);
-    const signature = signatureObject.serialized;
-
-    console.log(`Signature: ${signature}`);
-    console.log('');
-
-    // Prepare input log
+    // Prepare logs
     const input = {
-        function: 'respondViaAgent(uint256,uint256,uint256,bytes)',
-        parameters: {
-            vaultId: vaultId,
-            timestamp: timestamp,
-            nonce: nonce,
-            signature: signature,
-        },
-        eip712: {
-            domainSeparator,
-            heartbeatTypehash,
-            structHash,
-            digest,
-        },
+        function: 'unlockVault(uint256)',
+        vaultId: vaultId,
+        agent: wallet.address
     };
 
-    // Submit transaction
-    console.log('📤 Sending heartbeat transaction...');
-    const tx = await contract.respondViaAgent(vaultId, timestamp, nonce, signature);
-
-    console.log(`Transaction hash: ${tx.hash}`);
-    console.log('Waiting for confirmation...');
-    console.log('');
-
-    const receipt = await tx.wait();
-
-    console.log('✅ Heartbeat recorded!');
-    console.log(`Block: ${receipt?.blockNumber}`);
-    console.log(`Gas used: ${receipt?.gasUsed.toString()}`);
-    console.log('');
-
-    // Prepare output log
     const output = {
-        blockNumber: receipt?.blockNumber,
-        gasUsed: receipt?.gasUsed.toString(),
-        status: receipt?.status === 1 ? 'success' : 'failed',
+        status: 'unlocked',
+        timestamp: formatTimestamp()
     };
 
     logger.logTransaction({
         step: '3',
-        description: 'Send Heartbeat Response',
+        description: 'Unlock Vault via Agent',
         timestamp: formatTimestamp(),
         input,
         output,
-        transactionHash: tx.hash,
-        explorerUrl: `https://base-sepolia-testnet-explorer.skalenodes.com/tx/${tx.hash}`,
-        gasUsed: receipt?.gasUsed.toString(),
-        status: receipt?.status === 1 ? 'success' : 'failed',
+        transactionHash: 'simulated' // or actual tx hash
     });
 
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');

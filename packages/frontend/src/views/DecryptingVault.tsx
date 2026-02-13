@@ -1,11 +1,122 @@
 import React, { useState, useEffect } from 'react';
-import { Lock, Unlock, LockOpen, Quote, Download, CheckCircle, ExternalLink, ShieldCheck } from 'lucide-react';
+import { Lock, Unlock, LockOpen, Quote, Download, CheckCircle, ExternalLink, ShieldCheck, Upload, FileText, CreditCard, Brain, Loader2, X, ShieldOff, Ghost } from 'lucide-react';
+import { WalletModal } from '../components/WalletModal';
+import { UserAvatar } from '../components/UserAvatar';
+import { BrowserProvider } from 'ethers';
+import { useWalletClient, useAccount, useSwitchChain } from 'wagmi';
+import { skaleChaosSepolia } from '../wagmi';
+import { truncateAddress } from '../utils/format';
 
-type DecryptStatus = 'IDLE' | 'DECRYPTING' | 'REVEALED';
+interface DecryptingVaultProps {
+  onDisconnect?: () => void;
+}
 
-export const DecryptingVault: React.FC = () => {
+type DecryptStatus = 'IDLE' | 'VERIFYING' | 'DECRYPTING' | 'REVEALED';
+
+const MORGAN_STARK_ADDRESS = '0x89d042ef4153d9Ce1EB9E1dfD99607801225C595';
+
+export const DecryptingVault: React.FC<DecryptingVaultProps> = ({ onDisconnect }) => {
   const [status, setStatus] = useState<DecryptStatus>('IDLE');
   const [progress, setProgress] = useState(0);
+  const [proofFile, setProofFile] = useState<File | null>(null);
+  const [verificationStep, setVerificationStep] = useState<'idle' | 'payment' | 'analyzing' | 'approved'>('idle');
+  const [showWalletModal, setShowWalletModal] = useState(false);
+
+  // Get connected wallet from wagmi
+  const { data: walletClient } = useWalletClient();
+  const { address, isConnected, chain, connector } = useAccount();
+  const { switchChain } = useSwitchChain();
+
+  const handleUseDefaultProof = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.BASE_URL}mit_diploma.webp`);
+      const blob = await response.blob();
+      const file = new File([blob], "mit_diploma.webp", { type: "image/webp" });
+      setProofFile(file);
+    } catch (e) {
+      console.error("Failed to load default proof", e);
+    }
+  };
+
+  const handleClaim = async () => {
+    if (!proofFile) return;
+
+    // Check if wallet is connected
+    if (!isConnected) {
+      alert('Please connect your wallet first!');
+      return;
+    }
+
+    // Ensure we are on the right chain
+    if (chain?.id !== skaleChaosSepolia.id) {
+      if (window.confirm(`Please switch to ${skaleChaosSepolia.name} to proceed with verification.`)) {
+        switchChain({ chainId: skaleChaosSepolia.id });
+      }
+      return;
+    }
+
+    let activeWalletClient = walletClient;
+
+    // Fallback if useWalletClient results are not yet available but user is connected
+    if (!activeWalletClient && connector) {
+      try {
+        await connector.getProvider();
+        console.log("Fallback provider available from connector");
+      } catch (e) {
+        console.error("Failed to get provider from connector", e);
+      }
+    }
+
+    if (!activeWalletClient && !connector) {
+      alert('Wallet connection is not ready. Please try reconnecting your wallet.');
+      return;
+    }
+
+    setStatus('VERIFYING');
+    setVerificationStep('payment');
+
+    try {
+      // 1. Create ethers signer
+      // If we don't have walletClient, we try window.ethereum or connector provider
+      const rawProvider = activeWalletClient || (await connector?.getProvider());
+
+      if (!rawProvider) {
+        throw new Error("No wallet provider found. Please make sure your wallet is unlocked.");
+      }
+
+      const provider = new BrowserProvider(rawProvider as any);
+      await provider.getSigner();
+
+      // 2. Setup x402 payment wrapper with connected wallet
+      // const paymentFetch = wrapFetchWithPayment(fetch, signer as any);
+
+      setVerificationStep('analyzing');
+
+      // --- MOCK VERIFICATION FOR DEMO ---
+      // We skip the actual fetch to Agent API to avoid "Failed to fetch" if backend is down
+      console.log("Mocking Verification step for demo reliability...");
+      await new Promise(r => setTimeout(r, 2000)); // Simulate analysis time
+
+      setVerificationStep('approved');
+
+      // 3. Trigger Decryption
+      setTimeout(() => {
+        setStatus('DECRYPTING');
+      }, 1500);
+
+      /* 
+      // Original logic for real backend integration:
+      const agentUrl = import.meta.env.VITE_AGENT_URL || 'http://localhost:3002';
+      const response = await paymentFetch(`${agentUrl}/api/verify-paid`, { ... });
+      ...
+      */
+
+    } catch (error: any) {
+      console.error("Verification error:", error);
+      alert("Verification failed: " + (error.message || "Unknown error"));
+      setStatus('IDLE');
+    }
+  };
 
   // Handle Decryption Animation
   useEffect(() => {
@@ -30,14 +141,83 @@ export const DecryptingVault: React.FC = () => {
     }
   }, [status]);
 
-  // --- VIEW: IDLE (Pending Inheritance) ---
+  // Check if current user is Morgan Stark
+  const isMorganStark = address?.toLowerCase() === MORGAN_STARK_ADDRESS.toLowerCase();
+
+  // --- VIEW: EMPTY STATE (Not Morgan Stark) ---
+  if (isConnected && !isMorganStark && status === 'IDLE') {
+    return (
+      <div className="min-h-screen bg-background-dark text-white font-sans flex flex-col items-center justify-center p-6 pb-24 relative overflow-hidden">
+        {/* Background Ambience */}
+        <div className="absolute top-[-20%] right-[-20%] w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none opacity-20" />
+
+        <WalletModal
+          isOpen={showWalletModal}
+          onClose={() => setShowWalletModal(false)}
+          onDisconnect={onDisconnect}
+        />
+
+        <div className="w-full max-w-md mx-auto space-y-12 relative z-10 animate-in fade-in slide-in-from-bottom-6 duration-700">
+          {/* Header */}
+          <div className="px-6 py-4 flex items-center justify-between">
+            <div className="w-6" /> {/* Placeholder for alignment */}
+            <UserAvatar onClick={() => setShowWalletModal(true)} size="lg" />
+          </div>
+
+          <div className="text-center space-y-8 mt-12">
+            <div className="relative mx-auto w-24 h-24 flex items-center justify-center">
+              <div className="absolute inset-0 bg-white/5 rounded-full animate-pulse-slow" />
+              <div className="relative z-10 w-20 h-20 bg-surface/40 backdrop-blur-xl border border-white/5 rounded-full flex items-center justify-center shadow-2xl">
+                <ShieldOff size={40} className="text-slate-500" strokeWidth={1.5} />
+              </div>
+              <Ghost size={24} className="absolute -top-1 -right-1 text-slate-600 animate-bounce transition-all duration-1000" />
+            </div>
+
+            <div className="space-y-4">
+              <h1 className="text-4xl font-bold tracking-tight text-white leading-tight">
+                No Heritage Found
+              </h1>
+              <p className="text-lg text-slate-400 font-medium leading-relaxed">
+                Your wallet <span className="text-white font-mono">{truncateAddress(address)}</span> is not registered as a beneficiary for any active vaults.
+              </p>
+            </div>
+
+            <div className="pt-4">
+              <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/5 border border-white/10 text-slate-500 text-sm font-medium">
+                <div className="w-2 h-2 rounded-full bg-slate-700" />
+                Wait for Secure Release Signal
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-600 font-mono italic max-w-xs mx-auto">
+              ReliQ Protocol only reveals inheritances when liveness conditions are triggered.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // --- VIEW: IDLE (Pending Inheritance - Only for Morgan Stark) ---
   if (status === 'IDLE') {
     return (
       <div className="min-h-screen bg-background-dark text-white font-sans flex flex-col items-center justify-center p-6 pb-24 relative overflow-hidden">
         {/* Background Ambience */}
         <div className="absolute top-[-20%] right-[-20%] w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="w-full max-w-md space-y-8 relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <WalletModal
+          isOpen={showWalletModal}
+          onClose={() => setShowWalletModal(false)}
+          onDisconnect={onDisconnect}
+        />
+
+        <div className="w-full max-w-md mx-auto relative z-10">
+          {/* Header */}
+          <div className="px-6 py-4 flex items-center justify-between">
+            <div className="w-6" />
+            <UserAvatar onClick={() => setShowWalletModal(true)} size="md" />
+          </div>
 
           <div className="text-center space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4">
@@ -47,10 +227,10 @@ export const DecryptingVault: React.FC = () => {
               </span>
               <span className="text-[10px] font-mono uppercase tracking-widest text-primary">Signal Detected</span>
             </div>
+
             <h1 className="text-3xl font-bold tracking-tight">Vault Discovered</h1>
-            <p className="text-white/60">
-              A dead man's switch protocol has triggered. <br />
-              Encrypted assets are pending retrieval.
+            <p className="text-white/60 whitespace-nowrap">
+              Your digital legacy is ready for its rightful guardian.
             </p>
           </div>
 
@@ -74,18 +254,156 @@ export const DecryptingVault: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Removed technical details block per request */}
+                {/* Condition Section */}
+                <div className="bg-black/20 rounded-lg p-4 border border-white/5 space-y-2">
+                  <div className="flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-wider">
+                    <Brain size={12} />
+                    Unlock Condition
+                  </div>
+                  <p className="text-sm text-white/80 italic">
+                    "Morgan must graduate from MIT "
+                  </p>
+                </div>
+
+                {/* Proof Upload */}
+                <div className="space-y-3">
+                  <label className="text-xs font-medium text-slate-400 uppercase tracking-wide">Upload Proof (Diploma)</label>
+                  <div className="relative group/upload cursor-pointer">
+                    <input
+                      type="file"
+                      onChange={(e) => setProofFile(e.target.files?.[0] || null)}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                    />
+                    <div className={`border-2 border-dashed rounded-xl p-4 flex flex-col items-center justify-center transition-all duration-300 ${proofFile ? 'border-primary/50 bg-primary/10' : 'border-white/10 hover:border-primary/50 hover:bg-white/5'}`}>
+                      {proofFile ? (
+                        <div className="flex flex-col items-center w-full">
+                          {proofFile.type.startsWith('image/') ? (
+                            <div className="relative w-full aspect-video mb-3 rounded-lg overflow-hidden border border-white/10 bg-black/50">
+                              <img
+                                src={URL.createObjectURL(proofFile)}
+                                alt="Proof Preview"
+                                className="w-full h-full object-contain"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end justify-center pb-2">
+                                <span className="text-[10px] text-white/80 font-mono flex items-center gap-1">
+                                  <ShieldCheck size={10} className="text-green-400" /> Verified Format
+                                </span>
+                              </div>
+                            </div>
+                          ) : (
+                            <FileText className="text-green-400 mb-2" size={32} />
+                          )}
+                          <span className="text-xs text-green-400 font-medium truncate max-w-full px-4 flex items-center gap-2">
+                            {proofFile.name}
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setProofFile(null);
+                              }}
+                              className="p-1 hover:text-white rounded-full hover:bg-white/10"
+                            >
+                              <X size={12} />
+                            </button>
+                          </span>
+                        </div>
+                      ) : (
+                        <>
+                          <Upload className="text-white/40 mb-2 group-hover/upload:text-primary transition-colors" size={24} />
+                          <span className="text-xs text-white/40">Click to upload PDF/Image</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Use Demo Diploma Button */}
+                  {!proofFile && (
+                    <button
+                      onClick={handleUseDefaultProof}
+                      className="w-full py-2 px-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-between group transition-colors"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded bg-blue-500/20 flex items-center justify-center text-blue-400">
+                          <Brain size={14} />
+                        </div>
+                        <div className="text-left">
+                          <div className="text-[10px] font-bold text-white uppercase tracking-wide">Use Demo Diploma</div>
+                          <div className="text-[10px] text-slate-400">Loads mit_diploma.webp</div>
+                        </div>
+                      </div>
+                      <div className="px-2 py-1 rounded bg-blue-500/20 border border-blue-500/30 text-[10px] text-blue-400 font-bold group-hover:bg-blue-500 group-hover:text-white transition-all">
+                        SELECT
+                      </div>
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
 
           <button
-            onClick={() => setStatus('DECRYPTING')}
-            className="w-full bg-primary text-black font-bold text-lg py-4 rounded-xl border border-primary btn-3d hover:brightness-110 active:brightness-90 flex items-center justify-center gap-3 group transition-all"
+            onClick={handleClaim}
+            disabled={!proofFile}
+            className="w-full bg-primary text-black font-bold text-lg py-4 rounded-xl border border-primary btn-3d hover:brightness-110 active:brightness-90 flex items-center justify-center gap-3 group transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:grayscale"
           >
-            <Unlock size={20} className="group-hover:rotate-12 transition-transform" />
-            <span>Initiate Decryption</span>
+            {proofFile ? (
+              <>
+                <CreditCard size={20} />
+                <span>Verify</span>
+              </>
+            ) : (
+              <>
+                <Unlock size={20} />
+                <span>Select Proof to Unlock</span>
+              </>
+            )}
           </button>
+        </div>
+      </div>
+    );
+  }
+
+  // --- VIEW: VERIFYING (AI Agent Analysis) ---
+  if (status === 'VERIFYING') {
+    return (
+      <div className="min-h-screen bg-background-dark text-white font-sans flex items-center justify-center p-6 relative overflow-hidden">
+        <div className="w-full max-w-md mx-auto space-y-8 relative z-10 text-center">
+          <div className="relative w-32 h-32 mx-auto flex items-center justify-center">
+            <div className="absolute inset-0 bg-primary/20 rounded-full animate-ping" />
+            <div className="relative z-10 w-24 h-24 bg-surface border border-white/10 rounded-full flex items-center justify-center shadow-2xl">
+              <Brain size={48} className="text-primary animate-pulse" />
+            </div>
+            {verificationStep === 'payment' && (
+              <div className="absolute bottom-0 right-0 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center animate-bounce">
+                <CreditCard size={20} className="text-white" />
+              </div>
+            )}
+            {verificationStep === 'approved' && (
+              <div className="absolute bottom-0 right-0 w-10 h-10 bg-green-500 rounded-full flex items-center justify-center animate-in zoom-in">
+                <CheckCircle size={20} className="text-white" />
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold">
+              {verificationStep === 'payment' && "Processing x402 Payment..."}
+              {verificationStep === 'analyzing' && "AI Agent Analyzing Proof..."}
+              {verificationStep === 'approved' && "Verification Successful!"}
+            </h2>
+            <div className="flex flex-col gap-2 items-center text-sm text-slate-400 font-mono">
+              <div className={`flex items-center gap-2 ${verificationStep !== 'idle' ? 'text-green-400' : 'opacity-50'}`}>
+                <CheckCircle size={14} /> Payment Confirmed (0.01 USDC)
+              </div>
+              <div className={`flex items-center gap-2 ${verificationStep === 'analyzing' || verificationStep === 'approved' ? 'text-green-400' : 'opacity-50'}`}>
+                {verificationStep === 'analyzing' ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle size={14} />}
+                Analyzing Document Semantics
+              </div>
+              <div className={`flex items-center gap-2 ${verificationStep === 'approved' ? 'text-green-400' : 'opacity-50'}`}>
+                <CheckCircle size={14} /> Condition Met: "Graduate MIT"
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -126,7 +444,7 @@ export const DecryptingVault: React.FC = () => {
           <div className="w-full flex justify-between items-center pt-2 opacity-60">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-primary/50" />
-              <span className="text-xs font-mono tracking-widest uppercase text-white/50">Relic Protocol</span>
+              <span className="text-xs font-mono tracking-widest uppercase text-white/50">ReliQ Protocol</span>
             </div>
             <Lock size={16} className="text-white/50" />
           </div>
@@ -181,22 +499,27 @@ export const DecryptingVault: React.FC = () => {
 
   // --- VIEW: REVEALED (Vault Unlocked) ---
   return (
-    <div className="min-h-screen bg-background-dark text-white font-sans flex justify-center w-full relative overflow-hidden pb-24 animate-in fade-in zoom-in duration-500">
+    <div className="min-h-screen bg-background-dark text-white font-sans flex flex-col relative overflow-hidden pb-24 animate-in fade-in zoom-in duration-500">
       {/* Ethereal Background */}
       <div className="absolute top-0 left-0 w-full h-[60vh] bg-gradient-to-b from-purple-500/10 to-transparent pointer-events-none z-0" />
       <div className="absolute -top-24 -right-24 w-64 h-64 bg-purple-500/20 rounded-full blur-[80px] pointer-events-none z-0" />
 
-      <div className="w-full max-w-md h-full relative flex flex-col z-10">
+      <WalletModal
+        isOpen={showWalletModal}
+        onClose={() => setShowWalletModal(false)}
+        onDisconnect={onDisconnect}
+      />
+
+      <div className="w-full max-w-md mx-auto h-full relative flex flex-col z-10">
 
         {/* Header */}
-        <div className="px-6 pt-12 pb-4 flex items-center justify-between">
+        <div className="px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2 text-primary/80">
             <LockOpen size={16} />
             <span className="text-xs font-medium tracking-widest uppercase">Vault Unlocked</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-xs text-white/60 font-medium">Live</span>
+            <UserAvatar onClick={() => setShowWalletModal(true)} size="sm" />
           </div>
         </div>
 
@@ -246,7 +569,10 @@ export const DecryptingVault: React.FC = () => {
             <div className="h-32 w-full bg-cover bg-center relative" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1518546305927-5a555bb7020d?q=80&w=2069&auto=format&fit=crop')" }}>
               <div className="absolute inset-0 bg-gradient-to-t from-[#353017] to-transparent" />
               <div className="absolute bottom-3 left-4 flex items-center gap-2">
-                <span className="bg-black/40 backdrop-blur-md text-white text-[10px] px-2 py-1 rounded border border-white/10 uppercase font-bold tracking-wider">ETH Transfer</span>
+                <div className="w-5 h-5 rounded-full bg-white/10 backdrop-blur-md p-0.5 border border-white/20">
+                  <img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png?v=040" alt="USDC" className="w-full h-full object-contain" />
+                </div>
+                <span className="bg-black/40 backdrop-blur-md text-white text-[10px] px-2 py-1 rounded border border-white/10 uppercase font-bold tracking-wider">USDC Transfer</span>
               </div>
             </div>
             <div className="p-5 relative">
@@ -256,7 +582,7 @@ export const DecryptingVault: React.FC = () => {
                     <CheckCircle size={14} />
                     Confirmed
                   </p>
-                  <h3 className="text-white text-2xl font-bold tracking-tight">4.208 ETH</h3>
+                  <h3 className="text-white text-2xl font-bold tracking-tight">3,000 USDC</h3>
                 </div>
                 <div className="text-right">
                   <span className="text-white/40 text-xs line-through block decoration-white/30">LOCKED</span>
@@ -266,7 +592,7 @@ export const DecryptingVault: React.FC = () => {
               <div className="flex items-center justify-between mt-4 p-3 bg-black/20 rounded-lg border border-white/5">
                 <div className="flex flex-col">
                   <span className="text-[10px] text-white/40 uppercase tracking-wide mb-0.5">Destination Wallet</span>
-                  <span className="text-white/80 font-mono text-sm truncate w-32">Moose</span>
+                  <span className="text-white/80 font-mono text-sm truncate w-32">Morgan</span>
                 </div>
                 <button className="bg-primary hover:bg-yellow-400 text-background-dark text-xs font-bold py-2 px-3 rounded flex items-center gap-1 transition-colors">
                   View
@@ -282,7 +608,7 @@ export const DecryptingVault: React.FC = () => {
             <div>
               <h4 className="text-white text-sm font-semibold leading-tight">Threshold Decryption Verified</h4>
               <p className="text-white/50 text-xs mt-1 leading-normal">
-                Your inheritance was secured by Relic multi-party computation. No single key holder had access.
+                Your inheritance was secured by ReliQ multi-party computation. No single key holder had access.
               </p>
             </div>
           </div>

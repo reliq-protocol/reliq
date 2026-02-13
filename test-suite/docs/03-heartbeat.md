@@ -17,7 +17,7 @@
 
 ## Explorer
 
-https://base-sepolia-testnet-explorer.skalenodes.com/tx/0x77c9fb080b326173af25a94458f6afeb35b194a9450ac3e059b779dfe7aac13c
+https://base-sepolia-testnet-explorer.skalenodes.com:10032/tx/0x77c9fb080b326173af25a94458f6afeb35b194a9450ac3e059b779dfe7aac13c
 
 ## 輸入參數
 
@@ -39,9 +39,9 @@ respondViaAgent(uint256 vaultId, uint256 timestamp, uint256 nonce, bytes signatu
 
 ```json
 {
-  "name": "Reliq",
+  "name": "ReliQ",
   "version": "1",
-  "chainId": 324705682,
+  "chainId": 103698795,
   "verifyingContract": "0xEaBEA691f021691d2da93dBC00826B6a7D060cF6"
 }
 ```

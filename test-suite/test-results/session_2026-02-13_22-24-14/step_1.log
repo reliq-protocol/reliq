@@ -1,0 +1,20 @@
+==================================
+Step 1: Create Vault
+Timestamp: 2026-02-13T22:24:19.203Z
+==================================
+
+Transaction Hash: 0x86cc8a248d62b7b6722807714f2237fb3053811c9d9148578bfa3d6db1576ba1
+
+
+
+--- Input ---
+{
+  "timeout": 3600,
+  "amount": "0.0001"
+}
+
+--- Output ---
+{
+  "vaultId": "0",
+  "txHash": "0x86cc8a248d62b7b6722807714f2237fb3053811c9d9148578bfa3d6db1576ba1"
+}

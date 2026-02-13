@@ -17,7 +17,7 @@
 
 ## Explorer
 
-https://base-sepolia-testnet-explorer.skalenodes.com/tx/0x6868b6f12ca6603a848f5ec4a9f5ef230b5fa5c7555610fc878721b86c82b528
+https://base-sepolia-testnet-explorer.skalenodes.com:10032/tx/0x6868b6f12ca6603a848f5ec4a9f5ef230b5fa5c7555610fc878721b86c82b528
 
 ## 輸入參數
 

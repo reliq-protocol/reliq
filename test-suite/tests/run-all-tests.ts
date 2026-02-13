@@ -13,7 +13,7 @@ const execAsync = promisify(exec);
 const SESSION_ID = generateSessionId();
 
 console.log('╔════════════════════════════════════════╗');
-console.log('║  Reliq Protocol Complete Test Suite   ║');
+console.log('║  ReliQ Protocol Complete Test Suite   ║');
 console.log('╚════════════════════════════════════════╝');
 console.log('');
 console.log(`Session ID: ${SESSION_ID}`);

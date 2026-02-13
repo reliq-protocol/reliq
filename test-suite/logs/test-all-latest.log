@@ -1,9 +1,9 @@
 
-> relic-test-suite@1.0.0 test:all
+> ReliQ-test-suite@1.0.0 test:all
 > tsx tests/run-all-tests.ts
 
 ╔════════════════════════════════════════╗
-║  Reliq Protocol Complete Test Suite   ║
+║  ReliQ Protocol Complete Test Suite   ║
 ╚════════════════════════════════════════╝
 
 Session ID: 2026-02-13_17-58-06

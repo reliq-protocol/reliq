@@ -2,10 +2,10 @@
 
 ## Network Details
 - **Network Name**: SKALE Base Sepolia
-- **RPC URL**: `https://base-sepolia-testnet.skalenodes.com/v1/jubilant-horrible-ancha`
-- **Chain ID**: `324705682`
+- **RPC URL**: `https://base-sepolia-testnet.skalenodes.com/v1/bite-v2-sandbox`
+- **Chain ID**: `103698795`
 - **Chain ID (Hex)**: `0x135A9D92`
-- **Block Explorer**: https://base-sepolia-testnet-explorer.skalenodes.com/
+- **Block Explorer**: https://base-sepolia-testnet-explorer.skalenodes.com:10032/
 - **Faucet**: https://base-sepolia-faucet.skale.space
 
 ## Wallet Information
@@ -23,13 +23,13 @@ https://base-sepolia-faucet.skale.space
 {
   "chainId": "0x135A9D92",
   "chainName": "SKALE Base Sepolia",
-  "rpcUrls": ["https://base-sepolia-testnet.skalenodes.com/v1/jubilant-horrible-ancha"],
+  "rpcUrls": ["https://base-sepolia-testnet.skalenodes.com/v1/bite-v2-sandbox"],
   "nativeCurrency": {
     "name": "sFUEL",
     "symbol": "sFUEL",
     "decimals": 18
   },
-  "blockExplorerUrls": ["https://base-sepolia-testnet-explorer.skalenodes.com/"]
+  "blockExplorerUrls": ["https://base-sepolia-testnet-explorer.skalenodes.com:10032/"]
 }
 ```
 

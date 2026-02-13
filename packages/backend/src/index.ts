@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // ============ Database Connection ============
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/relic';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/ReliQ';
 
 mongoose.connect(MONGODB_URI)
     .then(() => console.log('✅ MongoDB connected'))
@@ -34,7 +34,7 @@ app.get('/health', (req, res) => {
 
 // ============ Start Server ============
 app.listen(PORT, () => {
-    console.log(`🚀 Reliq backend server running on http://localhost:${PORT}`);
+    console.log(`🚀 ReliQ backend server running on http://localhost:${PORT}`);
     console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
     console.log(`🔗 MongoDB: ${MONGODB_URI}`);
 

@@ -1,11 +1,11 @@
 # Project Restructure Summary
 
-## ✅ Completed - Relic → Reliq Rename and Monorepo Structure
+## ✅ Completed - ReliQ → ReliQ Rename and Monorepo Structure
 
 ### 1. Batch Rename (40 occurrences)
 - All source files: `.sol`, `.ts`, `.js`, `.json`, `.md`
-- `Relic.sol` → `Reliq.sol`
-- `Deploy.s.sol` → `DeployReliq.s.sol`
+- `ReliQ.sol` → `ReliQ.sol`
+- `Deploy.s.sol` → `DeployReliQ.s.sol`
 - Contract name, package names, documentation all updated
 
 ### 2. Monorepo Structure

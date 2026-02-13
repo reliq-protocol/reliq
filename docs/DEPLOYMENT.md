@@ -1,10 +1,10 @@
-# Reliq Contract Deployment Summary
+# ReliQ Contract Deployment Summary
 
 ## ✅ Deployment Successful
 
 **Contract Address**: `0xEaBEA691f021691d2da93dBC00826B6a7D060cF6`  
 **Network**: SKALE Base Sepolia  
-**Chain ID**: 324705682  
+**Chain ID**: 103698795  
 **Deployer**: 0x9554CEb8aEAA4bDEc5b088ec980254d6a2Da3c72  
 **Agent**: 0x9554CEb8aEAA4bDEc5b088ec980254d6a2Da3c72
 
@@ -16,8 +16,8 @@
 - **Remaining Balance**: 0.099999 ETH
 
 ### Explorer Links
-- **Contract**: https://base-sepolia-testnet-explorer.skalenodes.com/address/0xEaBEA691f021691d2da93dBC00826B6a7D060cF6
-- **Transaction**: https://base-sepolia-testnet-explorer.skalenodes.com/tx/0xd3ee5c10bb250851d4331e08d2e36de2f351297e2897d367dfcb295c5cd0c2ae
+- **Contract**: https://base-sepolia-testnet-explorer.skalenodes.com:10032/address/0xEaBEA691f021691d2da93dBC00826B6a7D060cF6
+- **Transaction**: https://base-sepolia-testnet-explorer.skalenodes.com:10032/tx/0xd3ee5c10bb250851d4331e08d2e36de2f351297e2897d367dfcb295c5cd0c2ae
 
 ## 🧪 Testing with Small Amounts
 
@@ -43,7 +43,7 @@
      86400 \
      --value 100000000000000 \
      --private-key $DEPLOYER_PRIVATE_KEY \
-     --rpc-url https://base-sepolia-testnet.skalenodes.com/v1/jubilant-horrible-ancha \
+     --rpc-url https://base-sepolia-testnet.skalenodes.com/v1/bite-v2-sandbox \
      --legacy
    ```
 

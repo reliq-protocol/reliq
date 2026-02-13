@@ -23,7 +23,7 @@ Error: invalid private key (argument="privateKey", value="[ REDACTED ]")
 
 ## 已完成的重構
 
-✅ Relic → Reliq 重命名
+✅ ReliQ → ReliQ 重命名
 ✅ Monorepo 結構
 ✅ test-suite 組織化
 ✅ 合約地址更新

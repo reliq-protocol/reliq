@@ -60,6 +60,8 @@ Receipt output (UI or structured log) showing what executed and why
 
 Resources
 
+INFO OF HACKATHON: https://docs.skale.space/get-started/hackathon/info.md
+
 x402 Introduction: https://docs.skale.space/get-started/agentic-builders/start-with-x402.md
 
 Encrypted Transactions with BITE SDK: https://docs.skale.space/developers/bite-protocol/typescript-sdk.md
@@ -69,3 +71,4 @@ Encrypted Transactions: https://docs.skale.space/developers/bite-protocol/encryp
 Conditional Transaction: https://docs.skale.space/developers/bite-protocol/conditional-transactions.md
 
 Bite API: https://docs.skale.space/developers/bite-protocol/bite-api-and-faqs.md
+
